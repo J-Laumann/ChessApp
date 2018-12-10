@@ -74,21 +74,13 @@
                                     <constraint firstAttribute="width" constant="132" id="d6P-Fv-EA1"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="W - L - T" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seJ-19-EMo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W - L - T" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seJ-19-EMo">
                                 <rect key="frame" x="157" y="213" width="115" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Firstname Lastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRN-dB-nec">
-                                <rect key="frame" x="157" y="64" width="155" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-9y-wMC" userLabel="Score">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-9y-wMC" userLabel="Score">
                                 <rect key="frame" x="157" y="145" width="61" height="60"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Score" label="Score"/>
                                 <constraints>
@@ -99,11 +91,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aEm-3n-RFK">
+                                <rect key="frame" x="13" y="102" width="349" height="7"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Firstname Lastname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RRN-dB-nec">
+                                <rect key="frame" x="78" y="71" width="219" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="seJ-19-EMo" firstAttribute="top" secondItem="xbr-9y-wMC" secondAttribute="bottom" constant="8" symbolic="YES" id="7cm-EC-L24"/>
+                            <constraint firstItem="xbr-9y-wMC" firstAttribute="top" secondItem="mDv-6j-Gif" secondAttribute="top" constant="145" id="BIc-kT-tRQ"/>
+                            <constraint firstItem="xbr-9y-wMC" firstAttribute="leading" secondItem="seJ-19-EMo" secondAttribute="leading" id="PNc-L4-Ptl"/>
+                            <constraint firstItem="RRN-dB-nec" firstAttribute="top" secondItem="Xlo-Sy-uhG" secondAttribute="top" constant="7" id="Sag-hl-Mzf"/>
+                            <constraint firstItem="aEm-3n-RFK" firstAttribute="leading" secondItem="Xlo-Sy-uhG" secondAttribute="leading" constant="13" id="f2e-hQ-Hyo"/>
                             <constraint firstItem="xbr-9y-wMC" firstAttribute="leading" secondItem="SQR-ke-7c5" secondAttribute="trailing" constant="9" id="hhn-uV-xr4"/>
+                            <constraint firstItem="xbr-9y-wMC" firstAttribute="centerX" secondItem="RRN-dB-nec" secondAttribute="centerX" id="l2M-2a-nWT"/>
+                            <constraint firstItem="xbr-9y-wMC" firstAttribute="top" secondItem="aEm-3n-RFK" secondAttribute="bottom" constant="36" id="q4M-Jf-n6F"/>
+                            <constraint firstItem="RRN-dB-nec" firstAttribute="centerX" secondItem="aEm-3n-RFK" secondAttribute="centerX" id="qPT-pm-52H"/>
+                            <constraint firstItem="aEm-3n-RFK" firstAttribute="top" secondItem="RRN-dB-nec" secondAttribute="bottom" constant="1" id="r0g-Ph-39B"/>
                             <constraint firstItem="SQR-ke-7c5" firstAttribute="top" secondItem="Xlo-Sy-uhG" secondAttribute="top" constant="18" id="xRc-QG-SCL"/>
+                            <constraint firstItem="xbr-9y-wMC" firstAttribute="centerX" secondItem="aEm-3n-RFK" secondAttribute="centerX" id="xbA-ta-qET"/>
                             <constraint firstItem="SQR-ke-7c5" firstAttribute="leading" secondItem="Xlo-Sy-uhG" secondAttribute="leading" constant="16" id="zyN-5K-NSG"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Xlo-Sy-uhG"/>
