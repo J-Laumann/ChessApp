@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		402A1B4121C809F2006E6EF4 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */; };
+		402A1B4321C83493006E6EF4 /* PlayerClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4221C83493006E6EF4 /* PlayerClass.swift */; };
 		7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */; };
 		BF93564020FFB00B00F76756 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93563F20FFB00B00F76756 /* AppDelegate.swift */; };
 		BF93564520FFB00B00F76756 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF93564320FFB00B00F76756 /* Main.storyboard */; };
@@ -16,8 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		402A1B0521C60143006E6EF4 /* NewspaperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewspaperExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
+		402A1B4221C83493006E6EF4 /* PlayerClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerClass.swift; sourceTree = "<group>"; };
 		7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerDetailViewController.swift; path = Assets.xcassets/PlayerDetailViewController.swift; sourceTree = "<group>"; };
-		7A838F5A21B98D8500FFF62D /* NewspaperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = NewspaperExample.app; path = "/Users/jackson/Desktop/ChessApp/build/Debug-iphoneos/NewspaperExample.app"; sourceTree = "<absolute>"; };
 		BF93563F20FFB00B00F76756 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF93564420FFB00B00F76756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF93564620FFB00C00F76756 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,6 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				BF93563E20FFB00B00F76756 /* ChessApp */,
+				402A1B0521C60143006E6EF4 /* NewspaperExample.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -49,6 +54,8 @@
 			children = (
 				BF93563F20FFB00B00F76756 /* AppDelegate.swift */,
 				BF93564320FFB00B00F76756 /* Main.storyboard */,
+				402A1B4221C83493006E6EF4 /* PlayerClass.swift */,
+				402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */,
 				BF93564620FFB00C00F76756 /* Assets.xcassets */,
 				BF93564820FFB00C00F76756 /* LaunchScreen.storyboard */,
 				BF93564B20FFB00C00F76756 /* Info.plist */,
@@ -75,7 +82,7 @@
 			);
 			name = NewspaperExample;
 			productName = NewspaperExample;
-			productReference = 7A838F5A21B98D8500FFF62D /* NewspaperExample.app */;
+			productReference = 402A1B0521C60143006E6EF4 /* NewspaperExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -130,7 +137,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF93565220FFB5E900F76756 /* StoriesTableViewController.swift in Sources */,
+				402A1B4121C809F2006E6EF4 /* AddPlayerViewController.swift in Sources */,
 				BF93564020FFB00B00F76756 /* AppDelegate.swift in Sources */,
+				402A1B4321C83493006E6EF4 /* PlayerClass.swift in Sources */,
 				7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
