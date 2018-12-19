@@ -15,6 +15,9 @@ class PlayerDetailViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var playerImg: UIImageView!
+    @IBOutlet weak var winlosstieText: UILabel!
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,7 @@ class PlayerDetailViewController: UIViewController {
         nameLabel.text = "\(player.firstName) \(player.lastName)"
         scoreLabel.text = "\(player.score)"
         playerImg.image = player.image
+        winlosstieText.text = "\(player.wins) - \(player.losses) - \(player.ties)"
     }
     
     override func didReceiveMemoryWarning() {

@@ -1,32 +1,13 @@
 import UIKit
 
-struct Player {
-
-    var id : Int
-    var firstName: String
-    var lastName: String
-    var wins: Int
-    var ties: Int
-    var losses: Int
-    var score: Double
-    var image : UIImage
-
-}
-
 class StoriesTableViewController: UITableViewController {
 
-    var players = [
-        Player(id: 1, firstName: "Jackson", lastName: "Laumann",
-               wins: 4, ties: 2, losses: 1, score: 5138008, image: #imageLiteral(resourceName: "IMG_0305")),
-        Player(id: 2, firstName: "Islaya", lastName: "Milbank",
-               wins: 0, ties: 6, losses: 1, score: 3.12, image: #imageLiteral(resourceName: "IMG_0329")),
-        Player(id: 3, firstName: "Mud", lastName: "Mud",
-               wins: 0, ties: 1, losses: 6, score: -1.466, image: #imageLiteral(resourceName: "IMG_1811"))
-        ]
+    var players : [Player]! = [] 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //Do stuff NOW
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlayer))
     }
 

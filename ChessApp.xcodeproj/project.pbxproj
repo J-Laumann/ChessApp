@@ -10,6 +10,7 @@
 		402A1B4121C809F2006E6EF4 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */; };
 		402A1B4321C83493006E6EF4 /* PlayerClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4221C83493006E6EF4 /* PlayerClass.swift */; };
 		7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */; };
+		7A47FBD221CAABF20011C068 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A47FBD121CAABF20011C068 /* MainViewController.swift */; };
 		BF93564020FFB00B00F76756 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93563F20FFB00B00F76756 /* AppDelegate.swift */; };
 		BF93564520FFB00B00F76756 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF93564320FFB00B00F76756 /* Main.storyboard */; };
 		BF93564720FFB00C00F76756 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF93564620FFB00C00F76756 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
 		402A1B4221C83493006E6EF4 /* PlayerClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerClass.swift; sourceTree = "<group>"; };
 		7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerDetailViewController.swift; path = Assets.xcassets/PlayerDetailViewController.swift; sourceTree = "<group>"; };
+		7A47FBD121CAABF20011C068 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BF93563F20FFB00B00F76756 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF93564420FFB00B00F76756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF93564620FFB00C00F76756 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -54,6 +56,7 @@
 			children = (
 				BF93563F20FFB00B00F76756 /* AppDelegate.swift */,
 				BF93564320FFB00B00F76756 /* Main.storyboard */,
+				7A47FBD121CAABF20011C068 /* MainViewController.swift */,
 				402A1B4221C83493006E6EF4 /* PlayerClass.swift */,
 				402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */,
 				BF93564620FFB00C00F76756 /* Assets.xcassets */,
@@ -139,6 +142,7 @@
 				BF93565220FFB5E900F76756 /* StoriesTableViewController.swift in Sources */,
 				402A1B4121C809F2006E6EF4 /* AddPlayerViewController.swift in Sources */,
 				BF93564020FFB00B00F76756 /* AppDelegate.swift in Sources */,
+				7A47FBD221CAABF20011C068 /* MainViewController.swift in Sources */,
 				402A1B4321C83493006E6EF4 /* PlayerClass.swift in Sources */,
 				7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */,
 			);
@@ -287,13 +291,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZF9MDBUJN3;
+				DEVELOPMENT_TEAM = X8YP749HFR;
 				INFOPLIST_FILE = "$(SRCROOT)/ChessApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.district196.ChessTeam;
+				PRODUCT_BUNDLE_IDENTIFIER = org.district196.ChessTeamApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -305,13 +309,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZF9MDBUJN3;
+				DEVELOPMENT_TEAM = X8YP749HFR;
 				INFOPLIST_FILE = "$(SRCROOT)/ChessApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.district196.ChessTeam;
+				PRODUCT_BUNDLE_IDENTIFIER = org.district196.ChessTeamApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
