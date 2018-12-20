@@ -11,7 +11,7 @@ import UIKit
 struct Match {
     var opponent : String
     var opponentSchool : String
-    var board : Int
+    var boardNumb : Int
     //result - 0 = win, 1 = loss, 2 = tie
     var result : Int
 }
@@ -32,7 +32,7 @@ struct Player {
 class MainViewController: UIViewController {
     
     var exampleMatches = [
-        Match(opponent: "Mud Mud", opponentSchool: "Hell", board: 1, result: 0)
+        Match(opponent: "Mud Mud", opponentSchool: "Hell", boardNumb: 1, result: 0)
     ]
     
     var mainPlayers : [Player]! = []

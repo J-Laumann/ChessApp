@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -90,7 +91,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-9y-wMC" userLabel="Score">
-                                <rect key="frame" x="174" y="125" width="185" height="80"/>
+                                <rect key="frame" x="174" y="119" width="185" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" identifier="Score" label="Score"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
@@ -114,29 +115,83 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" rowHeight="86" id="73e-IP-95d">
-                                        <rect key="frame" x="0.0" y="28" width="346" height="86"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" rowHeight="121" id="73e-IP-95d" customClass="HistoryTableViewCell" customModule="NewspaperExample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="346" height="121"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="73e-IP-95d" id="eds-cc-Wuu">
-                                            <rect key="frame" x="0.0" y="0.0" width="346" height="85.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="346" height="120.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXE-WV-C5u">
-                                                    <rect key="frame" x="15" y="11" width="42" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 / 31 / 2018" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WN4-LX-I9h" userLabel="date">
+                                                    <rect key="frame" x="0.0" y="4" width="346" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grx-yb-jqk" userLabel="board">
+                                                    <rect key="frame" x="120" y="35" width="137" height="75"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="W" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fL-No-Ys8" userLabel="result">
+                                                    <rect key="frame" x="291" y="35" width="34" height="75"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OppName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXE-WV-C5u" userLabel="OppName">
+                                                    <rect key="frame" x="15" y="44" width="201" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="OppSchool" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bCN-ul-FYM">
+                                                    <rect key="frame" x="15" y="72" width="201" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="WN4-LX-I9h" firstAttribute="top" secondItem="eds-cc-Wuu" secondAttribute="top" constant="4" id="0Ap-LL-7Vx"/>
+                                                <constraint firstItem="bCN-ul-FYM" firstAttribute="top" secondItem="SXE-WV-C5u" secondAttribute="bottom" constant="4" id="0UQ-Vq-CF9"/>
+                                                <constraint firstItem="WN4-LX-I9h" firstAttribute="leading" secondItem="eds-cc-Wuu" secondAttribute="leading" id="6xH-V2-QVP"/>
+                                                <constraint firstItem="grx-yb-jqk" firstAttribute="top" secondItem="eds-cc-Wuu" secondAttribute="topMargin" constant="24" id="8qC-Tw-63a"/>
+                                                <constraint firstItem="SXE-WV-C5u" firstAttribute="leading" secondItem="eds-cc-Wuu" secondAttribute="leadingMargin" constant="-1" id="DmI-3n-vp1"/>
+                                                <constraint firstItem="SXE-WV-C5u" firstAttribute="top" secondItem="WN4-LX-I9h" secondAttribute="bottom" constant="16" id="FLw-Ek-OC8"/>
+                                                <constraint firstItem="grx-yb-jqk" firstAttribute="leading" secondItem="SXE-WV-C5u" secondAttribute="trailing" constant="8" symbolic="YES" id="GC0-b1-WwQ"/>
+                                                <constraint firstItem="grx-yb-jqk" firstAttribute="bottom" secondItem="eds-cc-Wuu" secondAttribute="bottomMargin" id="Ild-ru-p4M"/>
+                                                <constraint firstItem="SXE-WV-C5u" firstAttribute="leading" secondItem="bCN-ul-FYM" secondAttribute="leading" id="KSz-yt-lHc"/>
+                                                <constraint firstItem="9fL-No-Ys8" firstAttribute="bottom" secondItem="eds-cc-Wuu" secondAttribute="bottomMargin" id="OjI-D9-zab"/>
+                                                <constraint firstItem="SXE-WV-C5u" firstAttribute="trailing" secondItem="bCN-ul-FYM" secondAttribute="trailing" id="iyj-xS-Q6P"/>
+                                                <constraint firstItem="9fL-No-Ys8" firstAttribute="top" secondItem="eds-cc-Wuu" secondAttribute="topMargin" constant="24" id="jap-eE-PiC"/>
+                                                <constraint firstAttribute="trailing" secondItem="WN4-LX-I9h" secondAttribute="trailing" id="rSC-zi-a6O"/>
+                                                <constraint firstItem="9fL-No-Ys8" firstAttribute="leading" secondItem="grx-yb-jqk" secondAttribute="trailing" constant="34" id="wR2-tl-Fk5"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9fL-No-Ys8" secondAttribute="trailing" constant="6" id="yOJ-Ko-Muo"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="boardText" destination="grx-yb-jqk" id="mUc-MN-gZo"/>
+                                            <outlet property="dateText" destination="WN4-LX-I9h" id="PNv-es-htT"/>
+                                            <outlet property="oppName" destination="SXE-WV-C5u" id="f5J-cc-2hb"/>
+                                            <outlet property="oppSchool" destination="bCN-ul-FYM" id="Q6D-jc-Fvs"/>
+                                            <outlet property="result" destination="9fL-No-Ys8" id="VIk-9Z-9y8"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="W - L - T" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="seJ-19-EMo">
-                                <rect key="frame" x="174" y="203" width="185" height="46"/>
+                                <rect key="frame" x="174" y="218" width="185" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Wins - Losses - Ties" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D9e-3j-aLX">
+                                <rect key="frame" x="171" y="200" width="156" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>

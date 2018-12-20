@@ -35,7 +35,7 @@ class StoriesTableViewController: UITableViewController {
 
         let h = players[indexPath.row]
         cell.textLabel?.text = "\(h.firstName) \(h.lastName)"
-        cell.detailTextLabel?.text = "SCORE: \(h.score))"
+        cell.detailTextLabel?.text = "SCORE: \(h.score)"
         cell.imageView?.image = h.image
         cell.tag = h.id
 
