@@ -15,7 +15,8 @@ struct Match {
     //result - 0 = win, 1 = loss, 2 = tie
     var result : Int
 }
-
+//I suck big cocks. - Isaiah
+//Also I am a libtard.
 struct Player {
     
     var id : Int
