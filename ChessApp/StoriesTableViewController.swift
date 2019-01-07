@@ -17,7 +17,7 @@ class StoriesTableViewController: UITableViewController {
     }
     
     @objc func openAddPlayer(){
-        //GOD IS DEAD
+        performSegue(withIdentifier: "addPlayerSegue", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

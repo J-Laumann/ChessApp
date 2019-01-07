@@ -55,10 +55,32 @@
                                 <rect key="frame" x="121" y="267" width="133" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18Y-th-AkU">
+                                <rect key="frame" x="124" y="467" width="127" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Create New Player"/>
+                                <connections>
+                                    <action selector="CreatePlayer:" destination="mro-Ny-hDC" eventType="touchUpInside" id="lPT-sF-Ue7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCb-OP-Ozm">
+                                <rect key="frame" x="121" y="267" width="133" height="133"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Picture"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="4j2-Qr-OzE"/>
                     </view>
+                    <connections>
+                        <outlet property="AddPlayerPicture" destination="cda-Ea-HL2" id="5r7-sl-5vF"/>
+                        <outlet property="FirstNameInput" destination="Agt-g3-7pJ" id="8VK-h0-G7m"/>
+                        <outlet property="LastNameInput" destination="IsL-WX-4dW" id="jaX-OK-3ea"/>
+                        <outlet property="PlayerFirstName" destination="qMJ-zU-7Lm" id="h8N-0X-iGP"/>
+                        <outlet property="PlayerLastName" destination="snd-4T-Wpx" id="Mbb-3W-58w"/>
+                        <outlet property="PlayerPicture" destination="ARV-Vh-RH6" id="RQF-10-zvx"/>
+                        <outlet property="SeasonPicker" destination="WxR-EV-ugO" id="iqG-YP-cFy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13n-HE-PEC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

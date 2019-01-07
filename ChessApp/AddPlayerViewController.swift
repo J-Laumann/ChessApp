@@ -10,6 +10,17 @@ import UIKit
 
 class AddPlayerViewController: UIViewController {
 
+    @IBOutlet weak var FirstNameInput: UITextField!
+    @IBOutlet weak var LastNameInput:   UITextField!
+    @IBOutlet weak var PlayerFirstName: UILabel!
+    @IBOutlet weak var PlayerLastName: UILabel!
+    @IBOutlet weak var PlayerPicture: UIImageView!
+    @IBOutlet weak var SeasonPicker: UIPickerView!
+    @IBOutlet var AddPlayerPicture: UIView!
+    
+    @IBAction func CreatePlayer(_ sender: Any) {
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: "returnSegue", action:    )
