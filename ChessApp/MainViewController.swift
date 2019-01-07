@@ -20,7 +20,6 @@ struct Player {
     var id : Int
     var firstName: String
     var lastName: String
-    var score: Double
     var image : UIImage
     var history : [Match]
 }
@@ -28,7 +27,7 @@ struct Player {
 class MainViewController: UIViewController {
     
     var exampleMatches = [
-        Match(opponent: "Mud Mud", opponentSchool: "Hell", boardNumb: 1, result: 0)
+        Match(opponent: "Mud Mud", opponentSchool: "Rosemount", boardNumb: 1, result: 0)
     ]
     
     var mainPlayers : [Player]! = []
@@ -41,11 +40,11 @@ class MainViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         mainPlayers = [
-            Player(id: 1, firstName: "Jackson", lastName: "Laumann", score: 10.4, image: #imageLiteral(resourceName: "IMG_0305"),
+            Player(id: 1, firstName: "Jackson", lastName: "Laumann", image: #imageLiteral(resourceName: "IMG_0305"),
                    history: [exampleMatches[0]]),
-            Player(id: 2, firstName: "Islaya", lastName: "Milbank", score: 3.12, image: #imageLiteral(resourceName: "IMG_0329"),
+            Player(id: 2, firstName: "Islaya", lastName: "Milbank", image: #imageLiteral(resourceName: "IMG_0329"),
                    history: [exampleMatches[0]]),
-            Player(id: 3, firstName: "Mud", lastName: "Mud", score: -1.466, image: #imageLiteral(resourceName: "IMG_1811"),
+            Player(id: 3, firstName: "Mud", lastName: "Mud", image: #imageLiteral(resourceName: "IMG_1811"),
                    history: [])
         ]
     }

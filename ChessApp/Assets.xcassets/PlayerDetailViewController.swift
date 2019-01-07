@@ -32,6 +32,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
     var wins : Int = 0
     var losses : Int = 0
     var ties : Int = 0
+    var score : Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,6 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         tableView.dataSource = self
         self.title = "\(player.firstName) \(player.lastName)"
         nameLabel.text = "\(player.firstName) \(player.lastName)"
-        scoreLabel.text = "\(player.score)"
         playerImg.image = player.image
         
     }
@@ -61,10 +61,27 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         cell.oppName.text = match.opponent
         cell.oppSchool.text = match.opponentSchool
         cell.boardText.text = "\(match.boardNumb)"
-        if(match.result == 0){ cell.result.text = "W"; wins += 1}
-        else if(match.result == 1){ cell.result.text = "L"; losses += 1}
-        else if(match.result == 2){ cell.result.text = "T"; ties += 1 }
+        if(match.result == 0){ cell.result.text = "W"; wins += 1
+            if(match.boardNumb >= 5){
+                score += Double(21 - match.boardNumb)
+            }
+            else{
+                score += 10.0
+            }
+        }
+        else if(match.result == 1){ cell.result.text = "L"; losses += 1
+            //no added score
+        }
+        else if(match.result == 2){ cell.result.text = "T"; ties += 1
+            if(match.boardNumb >= 5){
+                score += Double(10.5 - (Double(match.boardNumb) * 0.5))
+            }
+            else{
+                score += 5
+            }
+        }
         winlosstieText.text = "\(wins) - \(losses) - \(ties)"
+        scoreLabel.text = "\(score)"
         cell.dateText?.text = "12 / 31 / 2018"
         
         return cell

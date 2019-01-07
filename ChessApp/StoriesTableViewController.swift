@@ -21,7 +21,7 @@ class StoriesTableViewController: UITableViewController {
     }
     
     func newPlayer(fn: String, ln: String){
-        players.append(Player(id: players.count + 1, firstName: fn, lastName: ln, score: 1, image: #imageLiteral(resourceName: "IMG_0305"), history: []))
+        players.append(Player(id: players.count + 1, firstName: fn, lastName: ln, image: #imageLiteral(resourceName: "IMG_0305"), history: []))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -43,7 +43,6 @@ class StoriesTableViewController: UITableViewController {
 
         let h = players[indexPath.row]
         cell.textLabel?.text = "\(h.firstName) \(h.lastName)"
-        cell.detailTextLabel?.text = "SCORE: \(h.score)"
         cell.imageView?.image = h.image
         cell.tag = h.id
 
