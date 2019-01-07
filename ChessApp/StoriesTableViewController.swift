@@ -20,6 +20,10 @@ class StoriesTableViewController: UITableViewController {
         performSegue(withIdentifier: "addPlayerSegue", sender: self)
     }
     
+    func newPlayer(fn: String, ln: String){
+        players.append(Player(id: players.count + 1, firstName: fn, lastName: ln, score: 1, image: #imageLiteral(resourceName: "IMG_0305"), history: []))
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "playerSegue" {
             let detailView = segue.destination as? PlayerDetailViewController
@@ -27,6 +31,10 @@ class StoriesTableViewController: UITableViewController {
             if let dvc = detailView {
                 dvc.player =  players[cell.tag - 1]
             }
+        }
+        if(segue.identifier == "addPlayerSegue"){
+            let dv = segue.destination as? AddPlayerViewController
+            dv?.players = players
         }
     }
 

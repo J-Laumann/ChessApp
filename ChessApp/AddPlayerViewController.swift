@@ -15,21 +15,34 @@ class AddPlayerViewController: UIViewController {
     @IBOutlet weak var PlayerFirstName: UILabel!
     @IBOutlet weak var PlayerLastName: UILabel!
     @IBOutlet weak var PlayerPicture: UIImageView!
-    @IBOutlet weak var SeasonPicker: UIPickerView!
     @IBOutlet var AddPlayerPicture: UIView!
     
+    var players : [Player] = []
+    
     @IBAction func CreatePlayer(_ sender: Any) {
-        
+        performSegue(withIdentifier: "returnSegue", sender: self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: "returnSegue", action:    )
+        FirstNameInput.returnKeyType = UIReturnKeyType.done
+        LastNameInput.returnKeyType = UIReturnKeyType.done
+        
     }
 
+    @IBAction func doneFN(_ sender: UITextField) {
+        FirstNameInput.resignFirstResponder()
+    }
+    
+    @IBAction func donLN(_ sender: UITextField) {
+        LastNameInput.resignFirstResponder()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "returnSegue" {
-            let detailView = segue.destination as? StoriesTableViewController
-            
+            let dv = segue.destination as? StoriesTableViewController
+            dv?.players = players
+            dv?.newPlayer(fn: FirstNameInput.text!, ln: LastNameInput.text!)
         }
     }
 
@@ -37,7 +50,6 @@ class AddPlayerViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

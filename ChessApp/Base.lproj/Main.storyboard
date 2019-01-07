@@ -25,6 +25,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="doneFN:" destination="mro-Ny-hDC" eventType="primaryActionTriggered" id="U6E-wI-ybf"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player Firstname" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qMJ-zU-7Lm">
                                 <rect key="frame" x="166" y="118" width="127" height="21"/>
@@ -46,11 +49,10 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="donLN:" destination="mro-Ny-hDC" eventType="primaryActionTriggered" id="W18-fR-7T4"/>
+                                </connections>
                             </textField>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WxR-EV-ugO" userLabel="SeasonPicker">
-                                <rect key="frame" x="0.0" y="505" width="375" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ARV-Vh-RH6" userLabel="PlayerPicture">
                                 <rect key="frame" x="121" y="267" width="133" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -79,7 +81,7 @@
                         <outlet property="PlayerFirstName" destination="qMJ-zU-7Lm" id="h8N-0X-iGP"/>
                         <outlet property="PlayerLastName" destination="snd-4T-Wpx" id="Mbb-3W-58w"/>
                         <outlet property="PlayerPicture" destination="ARV-Vh-RH6" id="RQF-10-zvx"/>
-                        <outlet property="SeasonPicker" destination="WxR-EV-ugO" id="iqG-YP-cFy"/>
+                        <segue destination="J7Z-5i-lb1" kind="show" identifier="returnSegue" id="7pI-kR-UsT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13n-HE-PEC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -342,4 +344,7 @@
         <image name="blank-black-button-hi" width="600" height="292"/>
         <image name="kingface" width="488" height="488"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="7pI-kR-UsT"/>
+    </inferredMetricsTieBreakers>
 </document>

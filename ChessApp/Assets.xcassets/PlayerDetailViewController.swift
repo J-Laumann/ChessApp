@@ -29,6 +29,10 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
     
+    var wins : Int = 0
+    var losses : Int = 0
+    var ties : Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -38,7 +42,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         nameLabel.text = "\(player.firstName) \(player.lastName)"
         scoreLabel.text = "\(player.score)"
         playerImg.image = player.image
-        winlosstieText.text = "\(player.wins) - \(player.losses) - \(player.ties)"
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -57,9 +61,10 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         cell.oppName.text = match.opponent
         cell.oppSchool.text = match.opponentSchool
         cell.boardText.text = "\(match.boardNumb)"
-        if(match.result == 0){ cell.result.text = "W" }
-        else if(match.result == 1){ cell.result.text = "L" }
-        else if(match.result == 2){ cell.result.text = "T" }
+        if(match.result == 0){ cell.result.text = "W"; wins += 1}
+        else if(match.result == 1){ cell.result.text = "L"; losses += 1}
+        else if(match.result == 2){ cell.result.text = "T"; ties += 1 }
+        winlosstieText.text = "\(wins) - \(losses) - \(ties)"
         cell.dateText?.text = "12 / 31 / 2018"
         
         return cell
