@@ -45,9 +45,11 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         let strBase64: String = player.imgData
         let dataDecoded: Data = Data(base64Encoded: strBase64, options: .ignoreUnknownCharacters)!
         playerImg.image = UIImage(data: dataDecoded)
+        winlosstieText.text = "\(wins) - \(losses) - \(ties)"
+        scoreLabel.text = "\(score)"
         for match in player.history{
             if(match.result == 0){ wins += 1
-                if(match.boardNumb >= 5){
+                if(match.boardNumb <= 5){
                     score += Double(21 - match.boardNumb)
                 }
                 else if(match.boardNumb == 6){
@@ -58,7 +60,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
                 //no added score
             }
             else if(match.result == 2){ ties += 1
-                if(match.boardNumb >= 5){
+                if(match.boardNumb <= 5){
                     score += Double(10.5 - (Double(match.boardNumb) * 0.5))
                 }
                 else if(match.boardNumb == 6){

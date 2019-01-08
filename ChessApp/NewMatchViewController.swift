@@ -17,6 +17,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     var timer : Timer!
     
+    var season : Int!
     var player : Player = Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"))
     
     //Lotsa Motza! SIKE ITS UI
@@ -38,7 +39,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.title = "New Match"
+        self.title = "New Season \(Int(season) + 1) Match"
         pickedColor = WinButton.currentBackgroundImage
         noColor = LossButton.currentBackgroundImage
         WinButton.setBackgroundImage(noColor, for: .normal)
@@ -53,7 +54,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         playerPicker.dataSource = self
         playerPicker.delegate = self
         
-        if(UserDefaults.standard.integer(forKey: "players") > 0){
+        if(UserDefaults.standard.integer(forKey: "\(season)players") > 0){
             playerPicker.selectRow(0, inComponent: 0, animated: true)
         }
     }
@@ -113,7 +114,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return UserDefaults.standard.integer(forKey: "players")
+        return UserDefaults.standard.integer(forKey: "\(season)players")
     }
     
     @IBAction func DoneOppN(_ sender: Any) {
@@ -134,7 +135,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        player.restore(fileName: "player\(row)")
+        player.restore(fileName: "\(season)player\(row)")
         return "\(player.firstName) \(player.lastName)"
     }
     
@@ -154,11 +155,11 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     @IBAction func SaveMatch(_ sender: Any) {
         if(BoardField.text != ""){
-            player.restore(fileName: "player\(playerPicker.selectedRow(inComponent: 0))")
+            player.restore(fileName: "\(season)player\(playerPicker.selectedRow(inComponent: 0))")
             let calendar = Calendar.current
             let date = datePicker.date
             player.history.append(Match.init(oppName: OppNameField.text!, oppSchool: OppSchoolField.text!, board: Int(BoardField.text!)!, result: result, m: calendar.component(.month, from: date), d: calendar.component(.day, from: date), y: calendar.component(.year, from: date)))
-            player.archive(fileName: "player\(playerPicker.selectedRow(inComponent: 0))")
+            player.archive(fileName: "\(season)player\(playerPicker.selectedRow(inComponent: 0))")
             ChooseTie(self)
             OppSchoolField.text = ""
             OppNameField.text = ""

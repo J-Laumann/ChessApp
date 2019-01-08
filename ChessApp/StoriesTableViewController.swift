@@ -3,18 +3,20 @@ import UIKit
 class StoriesTableViewController: UITableViewController {
 
     var players : [Player]! = []
+    var season : Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //Do stuff NOW
+        self.title = "Season \(Int(season) + 1) Players"
         players = []
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlayer))
-        if(UserDefaults.standard.integer(forKey: "players") != 0){
-            let playerCount = UserDefaults.standard.integer(forKey: "players")
+        if(UserDefaults.standard.integer(forKey: "\(season)players") != 0){
+            let playerCount = UserDefaults.standard.integer(forKey: "\(season)players")
             for i in 0...(playerCount - 1){
                 players.append(Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")))
-                players[i].restore(fileName: "player\(i)")
+                players[i].restore(fileName: "\(season)player\(i)")
             }
         }
     }
@@ -32,17 +34,17 @@ class StoriesTableViewController: UITableViewController {
         players.remove(at: slot)
         if(players.count > 0){
             for i in 0...(players.count - 1){
-                players[i].archive(fileName: "player\(i)")
+                players[i].archive(fileName: "\(season)player\(i)")
             }
         }
-        UserDefaults.standard.set(players.count, forKey: "players")
+        UserDefaults.standard.set(players.count, forKey: "\(season)players")
         tableView.reloadData()
     }
     
     func newPlayer(fn: String, ln: String, image: UIImage){
         players.append(Player(fn: fn, ln: ln, img: image))
-        players[players.count - 1].archive(fileName: "player\(players.count - 1)")
-        UserDefaults.standard.set(players.count, forKey: "players")
+        players[players.count - 1].archive(fileName: "\(season)player\(players.count - 1)")
+        UserDefaults.standard.set(players.count, forKey: "\(season)players")
         tableView.reloadData()
     }
     

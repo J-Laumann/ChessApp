@@ -317,7 +317,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Evq-Rd-eb8">
-                                <rect key="frame" x="116" y="422" width="142" height="73"/>
+                                <rect key="frame" x="116" y="494" width="142" height="73"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <state key="normal" title="Team" backgroundImage="blank-black-button-hi"/>
@@ -326,21 +326,37 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPe-s3-qSB">
-                                <rect key="frame" x="116" y="538" width="142" height="72"/>
+                                <rect key="frame" x="116" y="575" width="142" height="72"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                 <state key="normal" title="Match" backgroundImage="blank-black-button-hi">
                                     <color key="titleColor" red="0.99331941405664581" green="1" blue="0.96912106563470501" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Th9-ua-aN3" kind="show" id="Mof-DA-Qf5"/>
+                                    <segue destination="Th9-ua-aN3" kind="show" identifier="toNewMatch" id="Mof-DA-Qf5"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5z-1a-X0C">
+                                <rect key="frame" x="111" y="397" width="152" height="95"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.9985810335874149" green="1" blue="0.98578779303137498" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.99858103359999995" green="1" blue="0.98578779299999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Season" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kNN-wi-fhf">
+                                <rect key="frame" x="122" y="377" width="132" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mcx-h9-mlv"/>
                     </view>
                     <navigationItem key="navigationItem" id="YA4-5u-jbH"/>
+                    <connections>
+                        <outlet property="seasonPicker" destination="O5z-1a-X0C" id="SrF-XL-3th"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHu-dB-sqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
