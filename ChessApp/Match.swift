@@ -17,19 +17,33 @@
 
 import Foundation
 import os.log
+import UIKit
 
 // **** Replace "PlayerClass" with the name of your class object to be persistent ***
-class PlayerClass: Codable {
+class Match: Codable {
     // **** These are all the Properties of the object to be persistent. ****
     // **** Every Property must be "Codable".                            ****
-    var name : String
-
+    var opponent : String
+    var opponentSchool : String
+    var boardNumb : Int
+    //result - 0 = win, 1 = loss, 2 = tie
+    var result : Int
+    var month : Int
+    var day: Int
+    var year: Int
+    
     
     // **** The initializer ("constructor" in Java terms) gives the persistent object its initial values ****
     // **** before it is restored from an archived value. Every Property must have an initial value. ****
-    init() {
-        name = "Practice"
-        }
+    init(oppName: String, oppSchool: String, board: Int, result: Int, m: Int, d: Int, y: Int){
+        self.opponent = oppName
+        self.opponentSchool = oppSchool
+        self.boardNumb = board
+        self.result = result
+        self.month = m
+        self.day = d
+        self.year = y
+    }
     
     // ********** You should not have to change ANYTHING in "func archive()" to use *************
     /**
@@ -64,10 +78,16 @@ class PlayerClass: Codable {
         if let recoveredDataCoded = NSKeyedUnarchiver.unarchiveObject(withFile: archiveURL.path) as? Data {
             do {
                 // *** Replace "PlayerClass" on the next line with the name of the class to be persistent. ***
-                let recoveredData = try PropertyListDecoder().decode(PlayerClass.self, from: recoveredDataCoded)
+                let recoveredData = try PropertyListDecoder().decode(Match.self, from: recoveredDataCoded)
                 os_log("Data successfully recovered from file.", log: OSLog.default, type: .debug)
                 // *** Replace all the assignment statements BELOW to "restore" all properties of the object ***
-                name = recoveredData.name
+                opponentSchool = recoveredData.opponentSchool
+                opponent = recoveredData.opponent
+                boardNumb = recoveredData.boardNumb
+                result = recoveredData.result
+                month = recoveredData.month
+                day = recoveredData.day
+                year = recoveredData.year
                 // *** Replace all the assignment statements ABOVE to "restore" all properties of the object ***
             } catch {
                 os_log("Failed to recover data", log: OSLog.default, type: .error)

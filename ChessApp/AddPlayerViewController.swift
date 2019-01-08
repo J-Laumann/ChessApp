@@ -2,14 +2,15 @@
 //  AddPlayerViewController.swift
 //  NewspaperExample
 //
-//  Created by Isaiah on 12/17/18.
+//  Created by Jackson on 12/17/18.
 //  Copyright © 2018 Example. All rights reserved.
 //
 
 import UIKit
 
-class AddPlayerViewController: UIViewController {
+class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+   
     @IBOutlet weak var FirstNameInput: UITextField!
     @IBOutlet weak var LastNameInput:   UITextField!
     @IBOutlet weak var PlayerFirstName: UILabel!
@@ -19,9 +20,8 @@ class AddPlayerViewController: UIViewController {
     
     var players : [Player] = []
     
-    @IBAction func CreatePlayer(_ sender: Any) {
-        performSegue(withIdentifier: "returnSegue", sender: self)
-    }
+    var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: "returnSegue", action:    )
@@ -37,15 +37,25 @@ class AddPlayerViewController: UIViewController {
     @IBAction func donLN(_ sender: UITextField) {
         LastNameInput.resignFirstResponder()
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "returnSegue" {
-            let dv = segue.destination as? StoriesTableViewController
-            dv?.players = players
-            dv?.newPlayer(fn: FirstNameInput.text!, ln: LastNameInput.text!)
+
+    @IBAction func changeImage(_ sender: UIButton) {
+        if (UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum)){
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.allowsEditing = false
+            
+            self.present(imagePicker, animated: true, completion: nil)
         }
     }
-
+    
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
+        self.dismiss(animated: true, completion: { () -> Void in
+            
+        })
+        
+        PlayerPicture.image = image
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

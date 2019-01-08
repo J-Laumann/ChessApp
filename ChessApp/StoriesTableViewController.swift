@@ -20,8 +20,11 @@ class StoriesTableViewController: UITableViewController {
         performSegue(withIdentifier: "addPlayerSegue", sender: self)
     }
     
-    func newPlayer(fn: String, ln: String){
-        players.append(Player(id: players.count + 1, firstName: fn, lastName: ln, image: #imageLiteral(resourceName: "IMG_0305"), history: []))
+    func newPlayer(fn: String, ln: String, image: UIImage){
+        players.append(Player(fn: fn, ln: ln, img: image))
+        players[players.count - 1].archive(fileName: "player\(players.count - 1)")
+        UserDefaults.standard.set(players.count, forKey: "players")
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -32,10 +35,6 @@ class StoriesTableViewController: UITableViewController {
                 dvc.player =  players[cell.tag - 1]
             }
         }
-        if(segue.identifier == "addPlayerSegue"){
-            let dv = segue.destination as? AddPlayerViewController
-            dv?.players = players
-        }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,10 +42,17 @@ class StoriesTableViewController: UITableViewController {
 
         let h = players[indexPath.row]
         cell.textLabel?.text = "\(h.firstName) \(h.lastName)"
-        cell.imageView?.image = h.image
-        cell.tag = h.id
+        let strBase64: String = h.imgData
+        let dataDecoded: Data = Data(base64Encoded: strBase64, options: .ignoreUnknownCharacters)!
+        cell.imageView?.image = UIImage(data: dataDecoded)
+        cell.tag = indexPath.row + 1
 
         return cell
     }
-
+    
+    @IBAction func unwindToTable(sender: UIStoryboardSegue){
+        if let sourceViewController = sender.source as? AddPlayerViewController {
+            newPlayer(fn: sourceViewController.FirstNameInput.text!, ln: sourceViewController.LastNameInput.text!, image: sourceViewController.PlayerPicture.image!)
+        }
+    }
 }

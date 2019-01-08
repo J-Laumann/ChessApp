@@ -53,22 +53,26 @@
                                     <action selector="donLN:" destination="mro-Ny-hDC" eventType="primaryActionTriggered" id="W18-fR-7T4"/>
                                 </connections>
                             </textField>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ARV-Vh-RH6" userLabel="PlayerPicture">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="avatar-male-silhouette-hi" translatesAutoresizingMaskIntoConstraints="NO" id="ARV-Vh-RH6" userLabel="PlayerPicture">
                                 <rect key="frame" x="121" y="267" width="133" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18Y-th-AkU">
-                                <rect key="frame" x="124" y="467" width="127" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Create New Player"/>
-                                <connections>
-                                    <action selector="CreatePlayer:" destination="mro-Ny-hDC" eventType="touchUpInside" id="lPT-sF-Ue7"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCb-OP-Ozm">
                                 <rect key="frame" x="121" y="267" width="133" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Add Picture"/>
+                                <connections>
+                                    <action selector="changeImage:" destination="mro-Ny-hDC" eventType="touchUpInside" id="pfm-Xo-fkr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18Y-th-AkU">
+                                <rect key="frame" x="100" y="498" width="174" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Create New Player" backgroundImage="blank-black-button-hi">
+                                    <color key="titleColor" red="0.99331941405664581" green="1" blue="0.96912106563470501" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Yqx-aG-ANi" kind="unwind" unwindAction="unwindToTableWithSender:" id="Gni-rO-gIx"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,12 +85,12 @@
                         <outlet property="PlayerFirstName" destination="qMJ-zU-7Lm" id="h8N-0X-iGP"/>
                         <outlet property="PlayerLastName" destination="snd-4T-Wpx" id="Mbb-3W-58w"/>
                         <outlet property="PlayerPicture" destination="ARV-Vh-RH6" id="RQF-10-zvx"/>
-                        <segue destination="J7Z-5i-lb1" kind="show" identifier="returnSegue" id="7pI-kR-UsT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="13n-HE-PEC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Yqx-aG-ANi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="245.59999999999999" y="71.514242878560722"/>
+            <point key="canvasLocation" x="96.799999999999997" y="32.833583208395808"/>
         </scene>
         <!--Players-->
         <scene sceneID="qq6-23-lQI">
@@ -341,10 +345,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="avatar-male-silhouette-hi" width="170" height="225"/>
         <image name="blank-black-button-hi" width="600" height="292"/>
         <image name="kingface" width="488" height="488"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="7pI-kR-UsT"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		402A1B4121C809F2006E6EF4 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */; };
-		402A1B4321C83493006E6EF4 /* PlayerClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4221C83493006E6EF4 /* PlayerClass.swift */; };
+		402A1B4321C83493006E6EF4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4221C83493006E6EF4 /* Player.swift */; };
 		7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */; };
 		7A47FBD221CAABF20011C068 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A47FBD121CAABF20011C068 /* MainViewController.swift */; };
+		7A892E8E21E4E9C400CCCCF8 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E8D21E4E9C400CCCCF8 /* Match.swift */; };
 		BF93564020FFB00B00F76756 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93563F20FFB00B00F76756 /* AppDelegate.swift */; };
 		BF93564520FFB00B00F76756 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF93564320FFB00B00F76756 /* Main.storyboard */; };
 		BF93564720FFB00C00F76756 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF93564620FFB00C00F76756 /* Assets.xcassets */; };
@@ -22,11 +23,12 @@
 /* Begin PBXFileReference section */
 		17774429C6937AA0D0763579 /* Pods-NewspaperExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewspaperExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NewspaperExample/Pods-NewspaperExample.debug.xcconfig"; sourceTree = "<group>"; };
 		402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerViewController.swift; sourceTree = "<group>"; };
-		402A1B4221C83493006E6EF4 /* PlayerClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerClass.swift; sourceTree = "<group>"; };
+		402A1B4221C83493006E6EF4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		661CEAA0637B2B87C4FEF4A1 /* Pods-NewspaperExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewspaperExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewspaperExample/Pods-NewspaperExample.release.xcconfig"; sourceTree = "<group>"; };
 		7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerDetailViewController.swift; path = Assets.xcassets/PlayerDetailViewController.swift; sourceTree = "<group>"; };
 		7A47FBD121CAABF20011C068 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7A892E8C21E3CBCA00CCCCF8 /* NewspaperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewspaperExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A892E8D21E4E9C400CCCCF8 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		BF93563F20FFB00B00F76756 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF93564420FFB00B00F76756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF93564620FFB00C00F76756 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,7 +83,8 @@
 				BF93563F20FFB00B00F76756 /* AppDelegate.swift */,
 				BF93564320FFB00B00F76756 /* Main.storyboard */,
 				7A47FBD121CAABF20011C068 /* MainViewController.swift */,
-				402A1B4221C83493006E6EF4 /* PlayerClass.swift */,
+				402A1B4221C83493006E6EF4 /* Player.swift */,
+				7A892E8D21E4E9C400CCCCF8 /* Match.swift */,
 				402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */,
 				BF93564620FFB00C00F76756 /* Assets.xcassets */,
 				BF93564820FFB00C00F76756 /* LaunchScreen.storyboard */,
@@ -187,6 +190,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-NewspaperExample/Pods-NewspaperExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
@@ -194,6 +198,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
@@ -233,8 +238,9 @@
 				402A1B4121C809F2006E6EF4 /* AddPlayerViewController.swift in Sources */,
 				BF93564020FFB00B00F76756 /* AppDelegate.swift in Sources */,
 				7A47FBD221CAABF20011C068 /* MainViewController.swift in Sources */,
-				402A1B4321C83493006E6EF4 /* PlayerClass.swift in Sources */,
+				402A1B4321C83493006E6EF4 /* Player.swift in Sources */,
 				7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */,
+				7A892E8E21E4E9C400CCCCF8 /* Match.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
