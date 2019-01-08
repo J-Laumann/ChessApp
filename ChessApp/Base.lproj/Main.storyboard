@@ -115,8 +115,8 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Stats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FXH-nG-x0P">
-                                            <rect key="frame" x="16" y="33.5" width="29.5" height="14.5"/>
+                                        <label hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FXH-nG-x0P">
+                                            <rect key="frame" x="16" y="33.5" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -144,7 +144,7 @@
             </objects>
             <point key="canvasLocation" x="976.79999999999995" y="32.833583208395808"/>
         </scene>
-        <!--Player Detail View Controller-->
+        <!--Title-->
         <scene sceneID="UyB-z2-0xE">
             <objects>
                 <viewController id="8Kb-EK-lok" customClass="PlayerDetailViewController" customModule="NewspaperExample" customModuleProvider="target" sceneMemberID="viewController">
@@ -282,6 +282,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Xlo-Sy-uhG"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="yLm-oA-aZP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="xH4-CA-KJn">
+                            <connections>
+                                <segue destination="LRH-5F-vRU" kind="unwind" unwindAction="deletePlayerAndUnwindWithSender:" id="jkG-Ti-sJg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="nameLabel" destination="RRN-dB-nec" id="OgY-bB-32f"/>
                         <outlet property="playerImg" destination="SQR-ke-7c5" id="MtE-go-TuJ"/>
@@ -291,6 +300,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MV7-N9-J0w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="LRH-5F-vRU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1983.2" y="71.514242878560722"/>
         </scene>
@@ -315,6 +325,17 @@
                                     <segue destination="J7Z-5i-lb1" kind="show" identifier="teamSegue" id="X0J-nu-1Ts"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPe-s3-qSB">
+                                <rect key="frame" x="116" y="538" width="142" height="72"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Match" backgroundImage="blank-black-button-hi">
+                                    <color key="titleColor" red="0.99331941405664581" green="1" blue="0.96912106563470501" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Th9-ua-aN3" kind="show" id="Mof-DA-Qf5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="mcx-h9-mlv"/>
@@ -324,6 +345,155 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MHu-dB-sqd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1900" y="-701.19940029985014"/>
+        </scene>
+        <!--New Match-->
+        <scene sceneID="W8c-6U-d3H">
+            <objects>
+                <viewController id="Th9-ua-aN3" customClass="NewMatchViewController" customModule="NewspaperExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="V7d-fh-5r3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="abF-0G-LuB">
+                                <rect key="frame" x="0.0" y="64" width="375" height="91"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <date key="date" timeIntervalSinceReferenceDate="568663584.45424402">
+                                    <!--2019-01-08 18:06:24 +0000-->
+                                </date>
+                            </datePicker>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qhs-17-acF" userLabel="PlayerPicker">
+                                <rect key="frame" x="0.0" y="215" width="375" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RJI-tn-eW8" userLabel="OppNameField">
+                                <rect key="frame" x="16" y="404" width="161" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="DoneOppN:" destination="Th9-ua-aN3" eventType="primaryActionTriggered" id="xfX-9r-Z51"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N5U-PF-m5F" userLabel="OppSchoolField">
+                                <rect key="frame" x="16" y="442" width="161" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="DoneOppS:" destination="Th9-ua-aN3" eventType="primaryActionTriggered" id="4Ar-sI-8Oz"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="23" translatesAutoresizingMaskIntoConstraints="NO" id="w6V-Na-ayA" userLabel="BoardField">
+                                <rect key="frame" x="135" y="522" width="104" height="63"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="49"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="DoneBoard:" destination="Th9-ua-aN3" eventType="primaryActionTriggered" id="7ao-2M-CqX"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUo-YK-d9B">
+                                <rect key="frame" x="16" y="549" width="118" height="98"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.99008780592064627" green="1" blue="0.97239444240810091" alpha="0.15186215753424659" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="51"/>
+                                <state key="normal" title="Win" backgroundImage="curved2">
+                                    <color key="titleColor" red="0.20700326487954768" green="0.61728664340101524" blue="0.22720840163496239" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleShadowColor" red="0.61728664340101524" green="0.52657903243541293" blue="0.51372051962011378" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="ChooseWin:" destination="Th9-ua-aN3" eventType="touchUpInside" id="V8C-7i-bcp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndD-wX-6ED">
+                                <rect key="frame" x="242" y="549" width="117" height="98"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="Loss">
+                                    <color key="titleColor" red="0.61728664340101524" green="0.16526613385076971" blue="0.047480223870209996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="ChooseLoss:" destination="Th9-ua-aN3" eventType="touchUpInside" id="soq-3Q-8nI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KTN-BJ-P1g">
+                                <rect key="frame" x="139" y="593" width="92" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <state key="normal" title="Tie"/>
+                                <connections>
+                                    <action selector="ChooseTie:" destination="Th9-ua-aN3" eventType="touchUpInside" id="Fze-5F-46f"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Board" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7t-7f-NsD">
+                                <rect key="frame" x="166" y="493" width="46" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Opponent's Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yw3-eJ-la6">
+                                <rect key="frame" x="197" y="409" width="162" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Opponent's School" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOp-nA-ehN">
+                                <rect key="frame" x="197" y="447" width="162" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imC-rO-x3T">
+                                <rect key="frame" x="154" y="177" width="67" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="curved2" translatesAutoresizingMaskIntoConstraints="NO" id="orw-Ku-TYE">
+                                <rect key="frame" x="67" y="215" width="240" height="182"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Match Saved!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMV-nh-LHx">
+                                <rect key="frame" x="81" y="226" width="212" height="159"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="56"/>
+                                <color key="textColor" red="0.9985810335874149" green="1" blue="0.98578779303137498" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="9Qf-xA-E2f"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Match" largeTitleDisplayMode="always" id="uLf-RI-4Hf">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="ids-zg-Qo4">
+                            <connections>
+                                <action selector="SaveMatch:" destination="Th9-ua-aN3" id="TFP-UF-8iF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="BoardField" destination="w6V-Na-ayA" id="OD2-G8-XCe"/>
+                        <outlet property="LossButton" destination="ndD-wX-6ED" id="ZhK-tZ-hsz"/>
+                        <outlet property="OppNameField" destination="RJI-tn-eW8" id="T61-dc-Lcm"/>
+                        <outlet property="OppSchoolField" destination="N5U-PF-m5F" id="rJu-Re-1Rj"/>
+                        <outlet property="TieButton" destination="KTN-BJ-P1g" id="BOL-rY-dVY"/>
+                        <outlet property="WinButton" destination="lUo-YK-d9B" id="4sq-2U-SNr"/>
+                        <outlet property="datePicker" destination="abF-0G-LuB" id="PbE-6d-gEu"/>
+                        <outlet property="playerPicker" destination="qhs-17-acF" id="hRf-Wk-GP5"/>
+                        <outlet property="popupText" destination="QMV-nh-LHx" id="k8T-Ez-S35"/>
+                        <outlet property="popupView" destination="orw-Ku-TYE" id="qpm-Lb-YaY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="72P-Wj-teA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2805.5999999999999" y="-759.67016491754134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="2ae-28-mGj">
@@ -335,6 +505,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oID-ou-3Gi">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="QFc-b2-r0O" kind="relationship" relationship="rootViewController" id="LJF-PR-jeE"/>
                     </connections>
@@ -347,6 +520,7 @@
     <resources>
         <image name="avatar-male-silhouette-hi" width="170" height="225"/>
         <image name="blank-black-button-hi" width="600" height="292"/>
+        <image name="curved2" width="225" height="225"/>
         <image name="kingface" width="488" height="488"/>
     </resources>
 </document>

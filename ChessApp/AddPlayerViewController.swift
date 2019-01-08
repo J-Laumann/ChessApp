@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -27,7 +28,7 @@ class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate
         //navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: "returnSegue", action:    )
         FirstNameInput.returnKeyType = UIReturnKeyType.done
         LastNameInput.returnKeyType = UIReturnKeyType.done
-        
+        checkPermission()
     }
 
     @IBAction func doneFN(_ sender: UITextField) {
@@ -48,13 +49,29 @@ class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!){
-        self.dismiss(animated: true, completion: { () -> Void in
-            
-        })
-        
-        PlayerPicture.image = image
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let chosen = info[UIImagePickerControllerOriginalImage]
+        PlayerPicture.image = (chosen as? UIImage)
+        picker.dismiss(animated: true, completion: nil)
     }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func checkPermission() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized: print("Access is granted by user")
+        case .notDetermined: PHPhotoLibrary.requestAuthorization({
+            (newStatus) in print("status is \(newStatus)")
+            if newStatus == PHAuthorizationStatus.authorized { print("success") }
+            })
+        case .restricted: print("User do not have access to photo album.")
+        case .denied: print("User has denied the permission.")
+        }
+    }
+        
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

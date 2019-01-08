@@ -2,13 +2,21 @@ import UIKit
 
 class StoriesTableViewController: UITableViewController {
 
-    var players : [Player]! = [] 
+    var players : [Player]! = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //Do stuff NOW
+        players = []
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlayer))
+        if(UserDefaults.standard.integer(forKey: "players") != 0){
+            let playerCount = UserDefaults.standard.integer(forKey: "players")
+            for i in 0...(playerCount - 1){
+                players.append(Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")))
+                players[i].restore(fileName: "player\(i)")
+            }
+        }
     }
 
     // MARK: - Table view data source
@@ -18,6 +26,17 @@ class StoriesTableViewController: UITableViewController {
     
     @objc func openAddPlayer(){
         performSegue(withIdentifier: "addPlayerSegue", sender: self)
+    }
+    
+    func deletePlayer(slot: Int){
+        players.remove(at: slot)
+        if(players.count > 0){
+            for i in 0...(players.count - 1){
+                players[i].archive(fileName: "player\(i)")
+            }
+        }
+        UserDefaults.standard.set(players.count, forKey: "players")
+        tableView.reloadData()
     }
     
     func newPlayer(fn: String, ln: String, image: UIImage){
@@ -33,6 +52,7 @@ class StoriesTableViewController: UITableViewController {
             let cell = sender as! UITableViewCell
             if let dvc = detailView {
                 dvc.player =  players[cell.tag - 1]
+                dvc.slot = cell.tag - 1
             }
         }
     }
@@ -53,6 +73,12 @@ class StoriesTableViewController: UITableViewController {
     @IBAction func unwindToTable(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? AddPlayerViewController {
             newPlayer(fn: sourceViewController.FirstNameInput.text!, ln: sourceViewController.LastNameInput.text!, image: sourceViewController.PlayerPicture.image!)
+        }
+    }
+    
+    @IBAction func deletePlayerAndUnwind(sender: UIStoryboardSegue){
+        if let source = sender.source as? PlayerDetailViewController{
+            deletePlayer(slot: source.slot)
         }
     }
 }

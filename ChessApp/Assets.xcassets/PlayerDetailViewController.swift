@@ -33,6 +33,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
     var losses : Int = 0
     var ties : Int = 0
     var score : Double = 0.0
+    var slot : Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
                 if(match.boardNumb >= 5){
                     score += Double(21 - match.boardNumb)
                 }
-                else{
+                else if(match.boardNumb == 6){
                     score += 10.0
                 }
             }
@@ -60,7 +61,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
                 if(match.boardNumb >= 5){
                     score += Double(10.5 - (Double(match.boardNumb) * 0.5))
                 }
-                else{
+                else if(match.boardNumb == 6){
                     score += 5
                 }
             }
