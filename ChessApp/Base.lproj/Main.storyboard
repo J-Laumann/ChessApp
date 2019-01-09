@@ -221,6 +221,14 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoY-eA-TAu" userLabel="remove">
+                                                    <rect key="frame" x="308" y="0.0" width="30" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" title="X"/>
+                                                    <connections>
+                                                        <action selector="removeMatch:" destination="8Kb-EK-lok" eventType="touchUpInside" id="s1w-kP-Dap"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="WN4-LX-I9h" firstAttribute="top" secondItem="eds-cc-Wuu" secondAttribute="top" constant="4" id="0Ap-LL-7Vx"/>
@@ -247,6 +255,7 @@
                                             <outlet property="dateText" destination="WN4-LX-I9h" id="PNv-es-htT"/>
                                             <outlet property="oppName" destination="SXE-WV-C5u" id="f5J-cc-2hb"/>
                                             <outlet property="oppSchool" destination="bCN-ul-FYM" id="Q6D-jc-Fvs"/>
+                                            <outlet property="removeButton" destination="yoY-eA-TAu" id="4WE-WO-B6b"/>
                                             <outlet property="result" destination="9fL-No-Ys8" id="VIk-9Z-9y8"/>
                                         </connections>
                                     </tableViewCell>

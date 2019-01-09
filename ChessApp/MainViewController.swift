@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseCore
 
 class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -20,6 +21,8 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        //FIRApp.configure()
         
         seasonPicker.dataSource = self
         seasonPicker.delegate = self

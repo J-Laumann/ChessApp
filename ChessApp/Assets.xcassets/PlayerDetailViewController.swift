@@ -15,7 +15,7 @@ class HistoryTableViewCell : UITableViewCell{
     @IBOutlet weak var dateText: UILabel!
     @IBOutlet weak var result: UILabel!
     @IBOutlet weak var boardText: UILabel!
-    
+    @IBOutlet weak var removeButton: UIButton!
 }
 
 class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -34,6 +34,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
     var ties : Int = 0
     var score : Double = 0.0
     var slot : Int!
+    var season : Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +76,14 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func removeMatch(_ sender: Any) {
+        let button = sender as! UIButton
+        let cell = button.superview
+        player.history.remove(at: (cell?.tag)!)
+        player.archive(fileName: "\(season)player\(slot)")
+        tableView.reloadData()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return player.history.count
     }
@@ -89,9 +98,10 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         winlosstieText.text = "\(wins) - \(losses) - \(ties)"
         scoreLabel.text = "\(score)"
         cell.dateText?.text = "\(match.month)/\(match.day)/\(match.year)"
-        if(match.result == 0){ cell.result.text = "W"}
-        else if(match.result == 1){ cell.result.text = "L"}
-        else if(match.result == 2){ cell.result.text = "T"}
+        if(match.result == 0){ cell.result.text = "W"; cell.result.textColor = UIColor.green}
+        else if(match.result == 1){ cell.result.text = "L"; cell.result.textColor = .red}
+        else if(match.result == 2){ cell.result.text = "T"; cell.result.textColor = .black}
+        cell.tag = indexPath.row
         return cell
     }
 }

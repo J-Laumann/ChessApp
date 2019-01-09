@@ -44,6 +44,9 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         noColor = LossButton.currentBackgroundImage
         WinButton.setBackgroundImage(noColor, for: .normal)
         TieButton.setBackgroundImage(pickedColor, for: .normal)
+        WinButton.setTitleColor(.green, for: .normal)
+        LossButton.setTitleColor(.red, for: .normal)
+        
         
         OppNameField.returnKeyType = UIReturnKeyType.done
         OppSchoolField.returnKeyType = UIReturnKeyType.done

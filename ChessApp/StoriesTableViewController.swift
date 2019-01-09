@@ -55,6 +55,7 @@ class StoriesTableViewController: UITableViewController {
             if let dvc = detailView {
                 dvc.player =  players[cell.tag - 1]
                 dvc.slot = cell.tag - 1
+                dvc.season = season
             }
         }
     }
