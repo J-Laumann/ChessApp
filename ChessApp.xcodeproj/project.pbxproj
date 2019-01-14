@@ -11,8 +11,10 @@
 		402A1B4321C83493006E6EF4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4221C83493006E6EF4 /* Player.swift */; };
 		7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */; };
 		7A47FBD221CAABF20011C068 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A47FBD121CAABF20011C068 /* MainViewController.swift */; };
+		7A77310D21E7998600108EEE /* HistoryTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77310C21E7998600108EEE /* HistoryTableController.swift */; };
 		7A892E8E21E4E9C400CCCCF8 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E8D21E4E9C400CCCCF8 /* Match.swift */; };
 		7AE7134221E51D1C003FE2E7 /* NewMatchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE7134121E51D1C003FE2E7 /* NewMatchViewController.swift */; };
+		7AF4FA1921ECCC9F003DD554 /* TabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF4FA1821ECCC9F003DD554 /* TabViewController.swift */; };
 		BF93564020FFB00B00F76756 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF93563F20FFB00B00F76756 /* AppDelegate.swift */; };
 		BF93564520FFB00B00F76756 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF93564320FFB00B00F76756 /* Main.storyboard */; };
 		BF93564720FFB00C00F76756 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF93564620FFB00C00F76756 /* Assets.xcassets */; };
@@ -28,9 +30,11 @@
 		661CEAA0637B2B87C4FEF4A1 /* Pods-NewspaperExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewspaperExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewspaperExample/Pods-NewspaperExample.release.xcconfig"; sourceTree = "<group>"; };
 		7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerDetailViewController.swift; path = Assets.xcassets/PlayerDetailViewController.swift; sourceTree = "<group>"; };
 		7A47FBD121CAABF20011C068 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		7A77310C21E7998600108EEE /* HistoryTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableController.swift; sourceTree = "<group>"; };
 		7A892E8C21E3CBCA00CCCCF8 /* NewspaperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewspaperExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A892E8D21E4E9C400CCCCF8 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
 		7AE7134121E51D1C003FE2E7 /* NewMatchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMatchViewController.swift; sourceTree = "<group>"; };
+		7AF4FA1821ECCC9F003DD554 /* TabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewController.swift; sourceTree = "<group>"; };
 		BF93563F20FFB00B00F76756 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF93564420FFB00B00F76756 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF93564620FFB00C00F76756 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,7 +88,9 @@
 			children = (
 				BF93563F20FFB00B00F76756 /* AppDelegate.swift */,
 				BF93564320FFB00B00F76756 /* Main.storyboard */,
+				7AF4FA1821ECCC9F003DD554 /* TabViewController.swift */,
 				7AE7134121E51D1C003FE2E7 /* NewMatchViewController.swift */,
+				7A77310C21E7998600108EEE /* HistoryTableController.swift */,
 				7A47FBD121CAABF20011C068 /* MainViewController.swift */,
 				402A1B4221C83493006E6EF4 /* Player.swift */,
 				7A892E8D21E4E9C400CCCCF8 /* Match.swift */,
@@ -238,12 +244,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF93565220FFB5E900F76756 /* StoriesTableViewController.swift in Sources */,
+				7A77310D21E7998600108EEE /* HistoryTableController.swift in Sources */,
 				402A1B4121C809F2006E6EF4 /* AddPlayerViewController.swift in Sources */,
 				BF93564020FFB00B00F76756 /* AppDelegate.swift in Sources */,
 				7A47FBD221CAABF20011C068 /* MainViewController.swift in Sources */,
 				402A1B4321C83493006E6EF4 /* Player.swift in Sources */,
 				7AE7134221E51D1C003FE2E7 /* NewMatchViewController.swift in Sources */,
 				7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */,
+				7AF4FA1921ECCC9F003DD554 /* TabViewController.swift in Sources */,
 				7A892E8E21E4E9C400CCCCF8 /* Match.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,13 +400,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X8YP749HFR;
+				DEVELOPMENT_TEAM = 96L2Y94678;
 				INFOPLIST_FILE = "$(SRCROOT)/ChessApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.district196.ChessTeamApp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.district196.ChessTeamApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -411,13 +419,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X8YP749HFR;
+				DEVELOPMENT_TEAM = 96L2Y94678;
 				INFOPLIST_FILE = "$(SRCROOT)/ChessApp/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.district196.ChessTeamApp;
+				PRODUCT_BUNDLE_IDENTIFIER = org.district196.ChessTeamApp2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

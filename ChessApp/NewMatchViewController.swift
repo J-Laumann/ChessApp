@@ -20,6 +20,9 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var season : Int!
     var player : Player = Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"))
     
+    var matchHistory : [HistoryMatch] = []
+    var matches : Int = 0
+    
     //Lotsa Motza! SIKE ITS UI
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var playerPicker: UIPickerView!
@@ -37,13 +40,13 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        season = UserDefaults.standard.integer(forKey: "season")
         // Do any additional setup after loading the view.
-        self.title = "New Season \(Int(season) + 1) Match"
-        pickedColor = WinButton.currentBackgroundImage
-        noColor = LossButton.currentBackgroundImage
-        WinButton.setBackgroundImage(noColor, for: .normal)
-        TieButton.setBackgroundImage(pickedColor, for: .normal)
+        //self.title = "New Season \(Int(season) + 1) Match"
+        if(pickedColor == nil && noColor == nil){
+            pickedColor = WinButton.currentBackgroundImage
+            noColor = LossButton.currentBackgroundImage
+        }
         WinButton.setTitleColor(.green, for: .normal)
         LossButton.setTitleColor(.red, for: .normal)
         
@@ -60,6 +63,16 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         if(UserDefaults.standard.integer(forKey: "\(season)players") > 0){
             playerPicker.selectRow(0, inComponent: 0, animated: true)
         }
+        
+        matches = UserDefaults.standard.integer(forKey: "\(season)matches")
+        
+        if (matches > 0){
+            for i in 0...(UserDefaults.standard.integer(forKey: "\(season)matches") - 1){
+                matchHistory.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
+                matchHistory[i].restore(fileName: "\(season)match\(i)")
+            }
+        }
+        ChooseTie(self)
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,7 +155,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return "\(player.firstName) \(player.lastName)"
     }
     
-    @objc func hidePopup(){
+    @objc func hidePopup() {
         popupView.alpha -= CGFloat(timer.timeInterval)
         popupText.alpha -= CGFloat(timer.timeInterval)
         if(popupView.alpha <= 0){
@@ -156,13 +169,24 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         timer = Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: (#selector(self.hidePopup)), userInfo: nil, repeats: true)
     }
     
+    func saveHistory(){
+        UserDefaults.standard.set(matches, forKey: "\(season)matches")
+        for i in 0...(matchHistory.count - 1){
+            matchHistory[i].archive(fileName: "\(season)match\(i)")
+        }
+        viewDidLoad()
+    }
+    
     @IBAction func SaveMatch(_ sender: Any) {
         if(BoardField.text != ""){
             player.restore(fileName: "\(season)player\(playerPicker.selectedRow(inComponent: 0))")
             let calendar = Calendar.current
             let date = datePicker.date
-            player.history.append(Match.init(oppName: OppNameField.text!, oppSchool: OppSchoolField.text!, board: Int(BoardField.text!)!, result: result, m: calendar.component(.month, from: date), d: calendar.component(.day, from: date), y: calendar.component(.year, from: date)))
+            player.history.append(Match.init(oppName: OppNameField.text!, oppSchool: OppSchoolField.text!, board: Int(BoardField.text!)!, result: result, m: calendar.component(.month, from: date), d: calendar.component(.day, from: date), y: calendar.component(.year, from: date), id: matches))
+            matchHistory.append(HistoryMatch.init(player: player, oppName: OppNameField.text!, oppSchool: OppSchoolField.text!, board: Int(BoardField.text!)!, result: result, m: calendar.component(.month, from: date), d: calendar.component(.day, from: date), y: calendar.component(.year, from: date)))
+            matches += 1
             player.archive(fileName: "\(season)player\(playerPicker.selectedRow(inComponent: 0))")
+            saveHistory()
             ChooseTie(self)
             OppSchoolField.text = ""
             OppNameField.text = ""

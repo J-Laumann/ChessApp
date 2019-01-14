@@ -38,6 +38,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        season = UserDefaults.standard.integer(forKey: "season")
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self
@@ -76,16 +77,20 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func removeMatch(_ sender: Any) {
-        let button = sender as! UIButton
-        let cell = button.superview
-        player.history.remove(at: (cell?.tag)!)
-        player.archive(fileName: "\(season)player\(slot)")
+    func removeMatch(index: Int) {
+        player.history.remove(at: (index))
+        player.archive(fileName: "\(season)player\(Int(slot))")
         tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return player.history.count
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            removeMatch(index: indexPath.row)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

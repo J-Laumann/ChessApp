@@ -7,8 +7,9 @@ class StoriesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        season = UserDefaults.standard.integer(forKey: "season")
         //Do stuff NOW
-        self.title = "Season \(Int(season) + 1) Players"
+        //self.title = "Season \(Int(season) + 1) Players"
         players = []
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlayer))
@@ -31,13 +32,34 @@ class StoriesTableViewController: UITableViewController {
     }
     
     func deletePlayer(slot: Int){
+        var matches : [HistoryMatch] = []
+        var matchCount : Int = UserDefaults.standard.integer(forKey: "\(season)matches")
+        if(matchCount > 0){
+            for i in 0...(UserDefaults.standard.integer(forKey: "\(season)matches")){
+                matches.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
+                matches[i].restore(fileName: "\(season)match\(i)")
+            }
+        }
+        for match in players[slot].history{
+            matches.remove(at: match.id)
+            matchCount -= 1
+        }
+        if(matchCount > 0){
+            for i in 0...(matchCount - 1){
+                matches[i].archive(fileName: "\(season)match\(i)")
+            }
+        }
         players.remove(at: slot)
         if(players.count > 0){
             for i in 0...(players.count - 1){
                 players[i].archive(fileName: "\(season)player\(i)")
             }
         }
+        UserDefaults.standard.set(matchCount, forKey: "\(season)matches")
         UserDefaults.standard.set(players.count, forKey: "\(season)players")
+        for tab in (tabBarController?.viewControllers)!{
+            tab.viewDidLoad()
+        }
         tableView.reloadData()
     }
     
@@ -50,6 +72,7 @@ class StoriesTableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "playerSegue" {
+            viewDidLoad()
             let detailView = segue.destination as? PlayerDetailViewController
             let cell = sender as! UITableViewCell
             if let dvc = detailView {
@@ -76,6 +99,10 @@ class StoriesTableViewController: UITableViewController {
     @IBAction func unwindToTable(sender: UIStoryboardSegue){
         if let sourceViewController = sender.source as? AddPlayerViewController {
             newPlayer(fn: sourceViewController.FirstNameInput.text!, ln: sourceViewController.LastNameInput.text!, image: sourceViewController.PlayerPicture.image!)
+            sourceViewController.FirstNameInput.text = ""
+            sourceViewController.LastNameInput.text = ""
+            sourceViewController.PlayerPicture.image = #imageLiteral(resourceName: "avatar-male-silhouette-hi")
+            tabBarController?.viewControllers![1].viewDidLoad()
         }
     }
     

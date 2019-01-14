@@ -38,6 +38,9 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         if(UserDefaults.standard.integer(forKey: "season") != 0){
             seasonPicker.selectRow(UserDefaults.standard.integer(forKey: "season"), inComponent: 0, animated: true)
         }
+        else{
+            seasonPicker.selectRow(0, inComponent: 0, animated: false)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,16 +49,11 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "teamSegue" {
-            let detailView = segue.destination as? StoriesTableViewController
-            if let dvc = detailView {
-                dvc.players = mainPlayers
+        if segue.identifier == "toMain" {
+            if let dvc = segue.destination as? MainTabController{
                 dvc.season = seasonPicker.selectedRow(inComponent: 0)
-            }
-        }
-        if segue.identifier == "toNewMatch" {
-            if let dvc = segue.destination as? NewMatchViewController{
-                dvc.season = seasonPicker.selectedRow(inComponent: 0)
+                print("\(seasonPicker.selectedRow(inComponent: 0))")
+                dvc.mainPlayers = mainPlayers
             }
         }
     }
@@ -76,4 +74,23 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         UserDefaults.standard.set(row, forKey: "season")
     }
     
+}
+
+class MainTabController : UITabBarController{
+    
+    var season: Int!
+    var mainPlayers : [Player]!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //do stuff
+    
+    }
+}
+
+class BackTabController : UIViewController{
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        performSegue(withIdentifier: "begin", sender: self)
+    }
 }
