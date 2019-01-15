@@ -18,6 +18,7 @@ class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate
     @IBOutlet weak var PlayerLastName: UILabel!
     @IBOutlet weak var PlayerPicture: UIImageView!
     @IBOutlet var AddPlayerPicture: UIView!
+    @IBOutlet weak var addButton: UIButton!
     
     var players : [Player] = []
     
@@ -26,6 +27,9 @@ class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         //navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: "returnSegue", action:    )
+        addButton.titleLabel?.numberOfLines = 1
+        addButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        addButton.titleLabel?.lineBreakMode = .byClipping
         FirstNameInput.returnKeyType = UIReturnKeyType.done
         LastNameInput.returnKeyType = UIReturnKeyType.done
         checkPermission()

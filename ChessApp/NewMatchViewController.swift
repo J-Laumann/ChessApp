@@ -174,17 +174,16 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         for i in 0...(matchHistory.count - 1){
             matchHistory[i].archive(fileName: "\(season)match\(i)")
         }
-        viewDidLoad()
     }
     
     @IBAction func SaveMatch(_ sender: Any) {
-        if(BoardField.text != ""){
+        if(BoardField.text != "" && UserDefaults.standard.integer(forKey: "\(season)players") > 0){
             player.restore(fileName: "\(season)player\(playerPicker.selectedRow(inComponent: 0))")
             let calendar = Calendar.current
             let date = datePicker.date
             player.history.append(Match.init(oppName: OppNameField.text!, oppSchool: OppSchoolField.text!, board: Int(BoardField.text!)!, result: result, m: calendar.component(.month, from: date), d: calendar.component(.day, from: date), y: calendar.component(.year, from: date), id: matches))
             matchHistory.append(HistoryMatch.init(player: player, oppName: OppNameField.text!, oppSchool: OppSchoolField.text!, board: Int(BoardField.text!)!, result: result, m: calendar.component(.month, from: date), d: calendar.component(.day, from: date), y: calendar.component(.year, from: date)))
-            matches += 1
+            matches = matchHistory.count
             player.archive(fileName: "\(season)player\(playerPicker.selectedRow(inComponent: 0))")
             saveHistory()
             ChooseTie(self)

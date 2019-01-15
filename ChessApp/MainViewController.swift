@@ -16,6 +16,8 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBOutlet weak var seasonPicker: UIPickerView!
     
+    @IBOutlet weak var goButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,6 +28,9 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         seasonPicker.dataSource = self
         seasonPicker.delegate = self
+        goButton.titleLabel?.numberOfLines = 1
+        goButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        goButton.titleLabel?.lineBreakMode = .byClipping
         
         if(UserDefaults.standard.integer(forKey: "players") != 0){
             playerCount = UserDefaults.standard.integer(forKey: "players")

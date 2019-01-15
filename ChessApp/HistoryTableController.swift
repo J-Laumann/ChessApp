@@ -64,12 +64,15 @@ class HistoryTableController: UITableViewController {
         cell.playerName.text = "\(matches[i].player.firstName) \(matches[i].player.lastName)"
         if(matches[i].result == 0){
             cell.result.text = "Win"
+            cell.result.textColor = UIColor.green
         }
         else if(matches[i].result == 1){
             cell.result.text = "Loss"
+            cell.result.textColor = UIColor.red
         }
         else{
             cell.result.text = "Tie"
+            cell.result.textColor = UIColor.black
         }
         cell.selectionStyle = .none
         return cell
