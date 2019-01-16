@@ -8,8 +8,9 @@
 
 import UIKit
 import FirebaseCore
+import GoogleSignIn
 
-class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GIDSignInUIDelegate {
     
     var mainPlayers : [Player]! = []
     var playerCount : Int = 0
@@ -17,14 +18,19 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var seasonPicker: UIPickerView!
     
     @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var background: UIImageView!
+    @IBOutlet weak var signInButton: GIDSignInButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        //FIRApp.configure()
+        GIDSignIn.sharedInstance().uiDelegate = self
+        if(GIDSignIn.sharedInstance() != nil){
+            background.superview?.isHidden = true
+            signInButton.isHidden = true
+        }
         
         seasonPicker.dataSource = self
         seasonPicker.delegate = self
@@ -35,7 +41,7 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         if(UserDefaults.standard.integer(forKey: "players") != 0){
             playerCount = UserDefaults.standard.integer(forKey: "players")
             for i in 0...(playerCount - 1){
-                mainPlayers.append(Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")))
+                mainPlayers.append(Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""))
                 mainPlayers[i].restore(fileName: "player\(i)")
             }
         }
@@ -77,6 +83,12 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         UserDefaults.standard.set(row, forKey: "season")
+    }
+    
+    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+        print("SIGNED IN!")
+        background.superview?.isHidden = true
+        signInButton.isHidden = true
     }
     
 }

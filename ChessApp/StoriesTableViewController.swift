@@ -1,9 +1,18 @@
 import UIKit
+import GoogleAPIClientForREST
+import GoogleSignIn
+import GoogleToolboxForMac
+import Google
+import GTMOAuth2
 
 class StoriesTableViewController: UITableViewController {
 
     var players : [Player]! = []
     var season : Int!
+    
+    private let scopes = [kGTLRAuthScopeSheetsDrive]
+    private let service = GTLRSheetsService()
+    let tempSheet = GTLRSheets_Spreadsheet.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,7 +25,7 @@ class StoriesTableViewController: UITableViewController {
         if(UserDefaults.standard.integer(forKey: "\(season)players") != 0){
             let playerCount = UserDefaults.standard.integer(forKey: "\(season)players")
             for i in 0...(playerCount - 1){
-                players.append(Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")))
+                players.append(Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""))
                 players[i].restore(fileName: "\(season)player\(i)")
             }
         }
@@ -36,7 +45,7 @@ class StoriesTableViewController: UITableViewController {
         var matchCount : Int = UserDefaults.standard.integer(forKey: "\(season)matches")
         if(matchCount > 0){
             for i in 0...(UserDefaults.standard.integer(forKey: "\(season)matches")){
-                matches.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
+                matches.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
                 matches[i].restore(fileName: "\(season)match\(i)")
             }
         }
@@ -64,10 +73,25 @@ class StoriesTableViewController: UITableViewController {
     }
     
     func newPlayer(fn: String, ln: String, image: UIImage){
-        players.append(Player(fn: fn, ln: ln, img: image))
-        players[players.count - 1].archive(fileName: "\(season)player\(players.count - 1)")
-        UserDefaults.standard.set(players.count, forKey: "\(season)players")
-        tableView.reloadData()
+        //make a new sheet and get and save its ID
+        tempSheet.properties?.title = "\(fn) \(ln) Player Sheet"
+        players.append(Player(fn: fn, ln: ln, img: image, shtID: ""))
+        let query = GTLRSheetsQuery_SpreadsheetsCreate.query(withObject: tempSheet)
+        query.completionBlock = { (ticket, result, NSError) in
+            
+            if let error = NSError {
+                print("ERROR:\(error.localizedDescription)")
+            }
+            else {
+                let response = result as! GTLRSheets_Spreadsheet
+                let identifier = response.spreadsheetId
+                self.players[self.players.count - 1].sheetID = identifier!
+                self.players[self.players.count - 1].archive(fileName: "\(self.season)player\(self.players.count - 1)")
+                UserDefaults.standard.set(self.players.count, forKey: "\(self.season)players")
+                self.tableView.reloadData()
+            }
+        }
+        service.executeQuery(query, completionHandler: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

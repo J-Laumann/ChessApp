@@ -83,7 +83,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         player.archive(fileName: "\(season)player\(Int(slot))")
         var matches : [HistoryMatch] = []
         for i in 0...(UserDefaults.standard.integer(forKey: "\(season)matches") - 1){
-            matches.append(HistoryMatch.init(player: Player.init(fn: "", ln: "", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")), oppName: "", oppSchool: "", board: 1, result: 1, m: 1, d: 1, y: 1))
+            matches.append(HistoryMatch.init(player: Player.init(fn: "", ln: "", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "", oppSchool: "", board: 1, result: 1, m: 1, d: 1, y: 1))
             matches[i].restore(fileName: "\(season)match\(i)")
         }
         matches.remove(at: index)

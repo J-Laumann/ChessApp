@@ -32,7 +32,7 @@ class HistoryTableController: UITableViewController {
         season = UserDefaults.standard.integer(forKey: "season")
         if(UserDefaults.standard.integer(forKey: "\(season)matches") > 0){
             for i in 0...(UserDefaults.standard.integer(forKey: "\(season)matches")){
-                matches.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
+                matches.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID:""), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
                 matches[i].restore(fileName: "\(season)match\(i)")
             }
         }

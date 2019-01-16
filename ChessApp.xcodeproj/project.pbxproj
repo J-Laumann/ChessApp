@@ -10,6 +10,7 @@
 		402A1B4121C809F2006E6EF4 /* AddPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4021C809F2006E6EF4 /* AddPlayerViewController.swift */; };
 		402A1B4321C83493006E6EF4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402A1B4221C83493006E6EF4 /* Player.swift */; };
 		7A002BF621B84FA100966716 /* PlayerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */; };
+		7A19093A21EE63D80068AF33 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A19093921EE63D80068AF33 /* GoogleService-Info.plist */; };
 		7A47FBD221CAABF20011C068 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A47FBD121CAABF20011C068 /* MainViewController.swift */; };
 		7A77310D21E7998600108EEE /* HistoryTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A77310C21E7998600108EEE /* HistoryTableController.swift */; };
 		7A892E8E21E4E9C400CCCCF8 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E8D21E4E9C400CCCCF8 /* Match.swift */; };
@@ -29,6 +30,7 @@
 		402A1B4221C83493006E6EF4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		661CEAA0637B2B87C4FEF4A1 /* Pods-NewspaperExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewspaperExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-NewspaperExample/Pods-NewspaperExample.release.xcconfig"; sourceTree = "<group>"; };
 		7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PlayerDetailViewController.swift; path = Assets.xcassets/PlayerDetailViewController.swift; sourceTree = "<group>"; };
+		7A19093921EE63D80068AF33 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7A47FBD121CAABF20011C068 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		7A77310C21E7998600108EEE /* HistoryTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableController.swift; sourceTree = "<group>"; };
 		7A892E8C21E3CBCA00CCCCF8 /* NewspaperExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewspaperExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +100,7 @@
 				BF93564620FFB00C00F76756 /* Assets.xcassets */,
 				BF93564820FFB00C00F76756 /* LaunchScreen.storyboard */,
 				BF93564B20FFB00C00F76756 /* Info.plist */,
+				7A19093921EE63D80068AF33 /* GoogleService-Info.plist */,
 				BF93565120FFB5E900F76756 /* StoriesTableViewController.swift */,
 				7A002BF521B84FA100966716 /* PlayerDetailViewController.swift */,
 			);
@@ -168,6 +171,7 @@
 				BF93564A20FFB00C00F76756 /* LaunchScreen.storyboard in Resources */,
 				BF93564720FFB00C00F76756 /* Assets.xcassets in Resources */,
 				BF93564520FFB00B00F76756 /* Main.storyboard in Resources */,
+				7A19093A21EE63D80068AF33 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

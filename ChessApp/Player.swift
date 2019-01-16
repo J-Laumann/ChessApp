@@ -26,17 +26,19 @@ class Player: Codable {
     var firstName: String
     var lastName: String
     var imgData: String
+    var sheetID: String
     var history : [Match]
 
     
     // **** The initializer ("constructor" in Java terms) gives the persistent object its initial values ****
     // **** before it is restored from an archived value. Every Property must have an initial value. ****
-    init(fn: String, ln: String, img: UIImage) {
+    init(fn: String, ln: String, img: UIImage, shtID: String) {
         firstName = fn
         lastName = ln
         let imageData: Data = UIImagePNGRepresentation(img)!
         let strBase64 = imageData.base64EncodedString(options: .lineLength64Characters)
         imgData = strBase64
+        sheetID = shtID
         history = []
     }
     
@@ -80,6 +82,7 @@ class Player: Codable {
                 lastName = recoveredData.lastName
                 imgData = recoveredData.imgData
                 history = recoveredData.history
+                sheetID = recoveredData.sheetID
                 // *** Replace all the assignment statements ABOVE to "restore" all properties of the object ***
             } catch {
                 os_log("Failed to recover data", log: OSLog.default, type: .error)

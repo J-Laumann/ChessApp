@@ -8,6 +8,10 @@
 
 import UIKit
 import Photos
+import GoogleAPIClientForREST
+import Google
+import GoogleSignIn
+import GoogleToolboxForMac
 
 class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 

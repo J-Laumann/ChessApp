@@ -18,7 +18,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     var timer : Timer!
     
     var season : Int!
-    var player : Player = Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"))
+    var player : Player = Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID:"")
     
     var matchHistory : [HistoryMatch] = []
     var matches : Int = 0
@@ -44,8 +44,8 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         // Do any additional setup after loading the view.
         //self.title = "New Season \(Int(season) + 1) Match"
         if(pickedColor == nil && noColor == nil){
-            pickedColor = WinButton.currentBackgroundImage
-            noColor = LossButton.currentBackgroundImage
+            pickedColor = #imageLiteral(resourceName: "curved2")
+            noColor = #imageLiteral(resourceName: "curved")
         }
         WinButton.setTitleColor(.green, for: .normal)
         LossButton.setTitleColor(.red, for: .normal)
@@ -68,7 +68,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         
         if (matches > 0){
             for i in 0...(UserDefaults.standard.integer(forKey: "\(season)matches") - 1){
-                matchHistory.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi")), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
+                matchHistory.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
                 matchHistory[i].restore(fileName: "\(season)match\(i)")
             }
         }
