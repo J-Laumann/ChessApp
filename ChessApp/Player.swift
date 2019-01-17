@@ -54,7 +54,7 @@ class Player: Codable {
             let encodedData = try PropertyListEncoder().encode(self)
             let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(encodedData, toFile: archiveURL.path)
             if isSuccessfulSave {
-                os_log("Data successfully saved to file.", log: OSLog.default, type: .debug)
+                //os_log("Data successfully saved to file.", log: OSLog.default, type: .debug)
             } else {
                 os_log("Failed to save data...", log: OSLog.default, type: .error)
             }
@@ -76,7 +76,7 @@ class Player: Codable {
             do {
                 // *** Replace "PlayerClass" on the next line with the name of the class to be persistent. ***
                 let recoveredData = try PropertyListDecoder().decode(Player.self, from: recoveredDataCoded)
-                os_log("Data successfully recovered from file.", log: OSLog.default, type: .debug)
+                //os_log("Data successfully recovered from file.", log: OSLog.default, type: .debug)
                 // *** Replace all the assignment statements BELOW to "restore" all properties of the object ***
                 firstName = recoveredData.firstName
                 lastName = recoveredData.lastName

@@ -26,8 +26,10 @@ class TabViewController: UITabBarController {
         if(item.tag == 5){
             performSegue(withIdentifier: "backToMain", sender: self)
         }
-        else if(item.tag == 4){
-            
+        else {
+            if(self.viewControllers![item.tag - 1].viewIfLoaded != nil){
+                self.viewControllers![item.tag - 1].viewDidLoad()
+            }
         }
     }
     

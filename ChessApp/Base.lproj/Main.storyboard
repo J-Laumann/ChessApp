@@ -100,7 +100,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4j2-Qr-OzE"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="1" title="Add Player" image="adduser" id="Nma-J1-7Rf"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Add Player" image="adduser" id="Nma-J1-7Rf"/>
                     <connections>
                         <outlet property="AddPlayerPicture" destination="cda-Ea-HL2" id="5r7-sl-5vF"/>
                         <outlet property="FirstNameInput" destination="Agt-g3-7pJ" id="8VK-h0-G7m"/>
@@ -159,7 +159,7 @@
                             <outlet property="delegate" destination="J7Z-5i-lb1" id="R99-vo-oe4"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" tag="2" title="Players" image="people" id="oP1-No-R27"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="Players" image="people" id="oP1-No-R27"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XsP-Ws-9jw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -617,7 +617,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9Qf-xA-E2f"/>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="3" title="Add Match" image="plussign" id="1qM-Lg-PXZ"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Add Match" image="plussign" id="1qM-Lg-PXZ"/>
                     <connections>
                         <outlet property="BoardField" destination="w6V-Na-ayA" id="OD2-G8-XCe"/>
                         <outlet property="LossButton" destination="ndD-wX-6ED" id="ZhK-tZ-hsz"/>

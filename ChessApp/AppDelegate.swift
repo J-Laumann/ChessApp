@@ -1,6 +1,7 @@
 import UIKit
 import GoogleSignIn
 import FirebaseCore
+import GTMOAuth2
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
@@ -11,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Initialize sign-in
-        GIDSignIn.sharedInstance().clientID = "705951391667-ubgl2m1ns8b1ufr1jam7thu9p9rb1shr.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance().clientID = "705951391667-6dred894blqjako9eumm2igd90dgu78m.apps.googleusercontent.com"
         GIDSignIn.sharedInstance().delegate = self
         FIRApp.configure()
         

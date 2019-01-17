@@ -10,13 +10,16 @@ class StoriesTableViewController: UITableViewController {
     var players : [Player]! = []
     var season : Int!
     
-    private let scopes = [kGTLRAuthScopeSheetsDrive]
     private let service = GTLRSheetsService()
     let tempSheet = GTLRSheets_Spreadsheet.init()
+    let auth = GTMOAuth2SignIn.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         season = UserDefaults.standard.integer(forKey: "season")
+        print("\(GIDSignIn.sharedInstance().clientID)")
+        // = GIDSignIn.sharedInstance().clientID
+        //auth.startSigningIn()
         //Do stuff NOW
         //self.title = "Season \(Int(season) + 1) Players"
         players = []
@@ -66,9 +69,6 @@ class StoriesTableViewController: UITableViewController {
         }
         UserDefaults.standard.set(matchCount, forKey: "\(season)matches")
         UserDefaults.standard.set(players.count, forKey: "\(season)players")
-        for tab in (tabBarController?.viewControllers)!{
-            tab.viewDidLoad()
-        }
         tableView.reloadData()
     }
     
@@ -77,6 +77,7 @@ class StoriesTableViewController: UITableViewController {
         tempSheet.properties?.title = "\(fn) \(ln) Player Sheet"
         players.append(Player(fn: fn, ln: ln, img: image, shtID: ""))
         let query = GTLRSheetsQuery_SpreadsheetsCreate.query(withObject: tempSheet)
+        
         query.completionBlock = { (ticket, result, NSError) in
             
             if let error = NSError {
@@ -126,7 +127,6 @@ class StoriesTableViewController: UITableViewController {
             sourceViewController.FirstNameInput.text = ""
             sourceViewController.LastNameInput.text = ""
             sourceViewController.PlayerPicture.image = #imageLiteral(resourceName: "avatar-male-silhouette-hi")
-            tabBarController?.viewControllers![1].viewDidLoad()
         }
     }
     

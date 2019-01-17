@@ -12,6 +12,7 @@ import GoogleAPIClientForREST
 import Google
 import GoogleSignIn
 import GoogleToolboxForMac
+import GTMOAuth2
 
 class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 

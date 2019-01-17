@@ -59,7 +59,7 @@ class Match: Codable {
             let encodedData = try PropertyListEncoder().encode(self)
             let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(encodedData, toFile: archiveURL.path)
             if isSuccessfulSave {
-                os_log("Data successfully saved to file.", log: OSLog.default, type: .debug)
+                //os_log("Data successfully saved to file.", log: OSLog.default, type: .debug)
             } else {
                 os_log("Failed to save data...", log: OSLog.default, type: .error)
             }
@@ -81,7 +81,7 @@ class Match: Codable {
             do {
                 // *** Replace "PlayerClass" on the next line with the name of the class to be persistent. ***
                 let recoveredData = try PropertyListDecoder().decode(Match.self, from: recoveredDataCoded)
-                os_log("Data successfully recovered from file.", log: OSLog.default, type: .debug)
+                //os_log("Data successfully recovered from file.", log: OSLog.default, type: .debug)
                 // *** Replace all the assignment statements BELOW to "restore" all properties of the object ***
                 opponentSchool = recoveredData.opponentSchool
                 opponent = recoveredData.opponent
@@ -141,7 +141,7 @@ class HistoryMatch : Codable {
             let encodedData = try PropertyListEncoder().encode(self)
             let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(encodedData, toFile: archiveURL.path)
             if isSuccessfulSave {
-                os_log("Data successfully saved to file.", log: OSLog.default, type: .debug)
+                //os_log("Data successfully saved to file.", log: OSLog.default, type: .debug)
             } else {
                 os_log("Failed to save data...", log: OSLog.default, type: .error)
             }
@@ -163,7 +163,7 @@ class HistoryMatch : Codable {
             do {
                 // *** Replace "PlayerClass" on the next line with the name of the class to be persistent. ***
                 let recoveredData = try PropertyListDecoder().decode(HistoryMatch.self, from: recoveredDataCoded)
-                os_log("Data successfully recovered from file.", log: OSLog.default, type: .debug)
+                //os_log("Data successfully recovered from file.", log: OSLog.default, type: .debug)
                 // *** Replace all the assignment statements BELOW to "restore" all properties of the object ***
                 player = recoveredData.player
                 opponentSchool = recoveredData.opponentSchool

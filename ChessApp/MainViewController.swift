@@ -9,11 +9,16 @@
 import UIKit
 import FirebaseCore
 import GoogleSignIn
+import GoogleAPIClientForREST
+import Google
 
 class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GIDSignInUIDelegate {
     
     var mainPlayers : [Player]! = []
     var playerCount : Int = 0
+    
+    private let scopes = [kGTLRAuthScopeSheetsDrive]
+    private let service = GTLRSheetsService()
     
     @IBOutlet weak var seasonPicker: UIPickerView!
     
@@ -24,13 +29,18 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //GOOGLE
+        GIDSignIn.sharedInstance().scopes = scopes
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().signInSilently()
+        /*if(GIDSignIn.sharedInstance().clientID != nil){
+         background.superview?.isHidden = true
+         signInButton.isHidden = true
+         }
+         */
+        
         // Do any additional setup after loading the view.
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-        GIDSignIn.sharedInstance().uiDelegate = self
-        if(GIDSignIn.sharedInstance() != nil){
-            background.superview?.isHidden = true
-            signInButton.isHidden = true
-        }
         
         seasonPicker.dataSource = self
         seasonPicker.delegate = self
@@ -89,6 +99,17 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         print("SIGNED IN!")
         background.superview?.isHidden = true
         signInButton.isHidden = true
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+              withError error: Error!) {
+        if let error = error {
+            print("Error: \(error.localizedDescription)")
+            self.service.authorizer = nil
+        } else {
+            self.signInButton.isHidden = true
+            self.service.authorizer = user.authentication.fetcherAuthorizer()
+        }
     }
     
 }
