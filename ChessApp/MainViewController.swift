@@ -10,10 +10,11 @@ import UIKit
 import FirebaseCore
 import GoogleSignIn
 import GoogleAPIClientForREST
+import GoogleToolboxForMac
 import Google
 import GTMOAuth2
 
-class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GIDSignInUIDelegate {
+class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GIDSignInUIDelegate, GIDSignInDelegate {
     
     var mainPlayers : [Player]! = []
     var playerCount : Int = 0
@@ -34,6 +35,7 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         //GOOGLE
         GIDSignIn.sharedInstance().scopes = scopes
         GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
         GIDSignIn.sharedInstance().signInSilently()
         /*if(GIDSignIn.sharedInstance().clientID != nil){
          background.superview?.isHidden = true
@@ -98,7 +100,8 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         UserDefaults.standard.set(row, forKey: "season")
     }
     
-    func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+              withError error: Error!) {
         if let error = error {
             print("Error: \(error.localizedDescription)")
             self.service.authorizer = nil
@@ -112,6 +115,7 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             auth = signIn.currentUser.authentication
         }
     }
+    
 }
 
 class BackTabController : UIViewController{

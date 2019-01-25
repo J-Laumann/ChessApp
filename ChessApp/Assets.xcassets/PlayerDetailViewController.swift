@@ -40,6 +40,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
         season = UserDefaults.standard.integer(forKey: "season")
         self.navigationController?.isToolbarHidden = false
+        tableView.allowsMultipleSelectionDuringEditing = false
         // Do any additional setup after loading the view, typically from a nib.
         tableView.delegate = self
         tableView.dataSource = self

@@ -24,6 +24,7 @@ class StoriesTableViewController: UITableViewController {
         //self.title = "Season \(Int(season) + 1) Players"
         players = []
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.tableView.allowsMultipleSelectionDuringEditing = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(openAddPlayer))
         if(UserDefaults.standard.integer(forKey: "\(season)players") != 0){
             let playerCount = UserDefaults.standard.integer(forKey: "\(season)players")
@@ -41,6 +42,12 @@ class StoriesTableViewController: UITableViewController {
     
     @objc func openAddPlayer(){
         performSegue(withIdentifier: "addPlayerSegue", sender: self)
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            deletePlayer(slot: indexPath.row)
+        }
     }
     
     func deletePlayer(slot: Int){
@@ -74,9 +81,9 @@ class StoriesTableViewController: UITableViewController {
     
     func newPlayer(fn: String, ln: String, image: UIImage){
         //make a new sheet and get and save its ID
-        tempSheet.sheets![0].properties?.title = "\(fn) \(ln) Player Sheet"
+        tempSheet.properties?.title = "\(fn) \(ln) Player Sheet"
         players.append(Player(fn: fn, ln: ln, img: image, shtID: ""))
-        var query = GTLRSheetsQuery_SpreadsheetsCreate.query(withObject: tempSheet)
+        let query = GTLRSheetsQuery_SpreadsheetsCreate.query(withObject: tempSheet)
         service.authorizer = auth.fetcherAuthorizer()
         query.completionBlock = { (ticket, result, NSError) in
             
@@ -85,11 +92,43 @@ class StoriesTableViewController: UITableViewController {
             }
             else {
                 let response = result as! GTLRSheets_Spreadsheet
-                let identifier = response.spreadsheetId
-                self.players[self.players.count - 1].sheetID = identifier!
-                self.players[self.players.count - 1].archive(fileName: "\(self.season)player\(self.players.count - 1)")
-                UserDefaults.standard.set(self.players.count, forKey: "\(self.season)players")
-                self.tableView.reloadData()
+                let resource = GTLRSheets_ValueRange.init()
+                resource.values = [
+                    ["CHESS LEAGUE"],
+                    ["","","","","","","","SEASON \(Int(self.season))"],
+                    ["Individual Player's Record"],
+                    [""],
+                    ["Player:", "\(fn) \(ln)"],
+                    ["School", "Eagan", "", "", "", "", "Win", "Draw"],
+                    ["","","","","","1st","20","10"],
+                    ["","","","","","2nd","19","9.5"],
+                    ["","","","","","3rd","18","9"],
+                    ["","","","","","4th","17","8.5"],
+                    ["","","","","","5th","16","8"],
+                    ["","","","","","6th","10","5"],
+                    [""],
+                    ["ROUND", "DATE", "BOARD", "COLOR", "OPPONENT", "OPP. SCHOOL", "RESULT", "POINTS"]
+                ]
+                let spreadsheetId = response.spreadsheetId
+                let range = "A1:H14"
+                let editQuery = GTLRSheetsQuery_SpreadsheetsValuesAppend.query(withObject: resource, spreadsheetId: spreadsheetId!, range: range)
+                editQuery.valueInputOption = "USER_ENTERED"
+                editQuery.completionBlock = { (ticket, result, NSError) in
+                    
+                    if let error = NSError {
+                        print("ERROR:\(error.localizedDescription)")
+                    }
+                    else {
+                        print("Template set...?")
+                        let identifier = response.spreadsheetId
+                        print("new sheet id: \(identifier!)")
+                        self.players[self.players.count - 1].sheetID = String(identifier!)
+                        self.players[self.players.count - 1].archive(fileName: "\(self.season)player\(self.players.count - 1)")
+                        UserDefaults.standard.set(self.players.count, forKey: "\(self.season)players")
+                        self.tableView.reloadData()
+                    }
+                }
+                self.service.executeQuery(editQuery, completionHandler: nil)
             }
         }
         service.executeQuery(query, completionHandler: nil)
