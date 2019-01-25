@@ -11,14 +11,16 @@ import FirebaseCore
 import GoogleSignIn
 import GoogleAPIClientForREST
 import Google
+import GTMOAuth2
 
 class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GIDSignInUIDelegate {
     
     var mainPlayers : [Player]! = []
     var playerCount : Int = 0
     
-    private let scopes = [kGTLRAuthScopeSheetsDrive]
+    private let scopes = [kGTLRAuthScopeSheetsDrive, kGTLRAuthScopeSheetsSpreadsheets]
     private let service = GTLRSheetsService()
+    private var auth = GIDAuthentication()
     
     @IBOutlet weak var seasonPicker: UIPickerView!
     
@@ -71,10 +73,11 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMain" {
-            if let dvc = segue.destination as? MainTabController{
+            if let dvc = segue.destination as? TabViewController{
                 dvc.season = seasonPicker.selectedRow(inComponent: 0)
                 print("\(seasonPicker.selectedRow(inComponent: 0))")
-                dvc.mainPlayers = mainPlayers
+                dvc.auth = auth
+                print("SENDING AUTH... ID: \(auth.clientID)")
             }
         }
     }
@@ -96,33 +99,18 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func sign(inWillDispatch signIn: GIDSignIn!, error: Error!) {
-        print("SIGNED IN!")
-        background.superview?.isHidden = true
-        signInButton.isHidden = true
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-              withError error: Error!) {
         if let error = error {
             print("Error: \(error.localizedDescription)")
             self.service.authorizer = nil
         } else {
-            self.signInButton.isHidden = true
-            self.service.authorizer = user.authentication.fetcherAuthorizer()
+            print("SIGNED IN!")
+            background.superview?.isHidden = true
+            signInButton.isHidden = true
+            print("fuckin scopes work: \(signIn.currentUser.grantedScopes[0])")
+            self.service.authorizer = signIn.currentUser.authentication.fetcherAuthorizer()
+            //self.service.apiKey = "AIzaSyA3DGxcVr0ZOayrk3KHLtkkrTgz_4zq8MA"
+            auth = signIn.currentUser.authentication
         }
-    }
-    
-}
-
-class MainTabController : UITabBarController{
-    
-    var season: Int!
-    var mainPlayers : [Player]!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //do stuff
-    
     }
 }
 

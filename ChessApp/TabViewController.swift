@@ -7,13 +7,27 @@
 //
 
 import UIKit
+import FirebaseCore
+import GoogleSignIn
+import GoogleAPIClientForREST
+import Google
+import GTMOAuth2
 
 class TabViewController: UITabBarController {
 
+    var auth : GIDAuthentication!
+    var season : Int!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        print("AUTH: \(auth.clientID)")
+        for view in self.viewControllers!{
+            if let tableView = view as? StoriesTableViewController {
+                tableView.auth = auth
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +43,9 @@ class TabViewController: UITabBarController {
         else {
             if(self.viewControllers![item.tag - 1].viewIfLoaded != nil){
                 self.viewControllers![item.tag - 1].viewDidLoad()
+            }
+            if let tableView = self.viewControllers![item.tag - 1] as? StoriesTableViewController{
+                tableView.auth = auth
             }
         }
     }

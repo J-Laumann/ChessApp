@@ -12,12 +12,12 @@ class StoriesTableViewController: UITableViewController {
     
     private let service = GTLRSheetsService()
     let tempSheet = GTLRSheets_Spreadsheet.init()
-    let auth = GTMOAuth2SignIn.init()
+    var auth : GIDAuthentication!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         season = UserDefaults.standard.integer(forKey: "season")
-        print("\(GIDSignIn.sharedInstance().clientID)")
+        //print("\(GIDSignIn.sharedInstance().clientID)")
         // = GIDSignIn.sharedInstance().clientID
         //auth.startSigningIn()
         //Do stuff NOW
@@ -74,10 +74,10 @@ class StoriesTableViewController: UITableViewController {
     
     func newPlayer(fn: String, ln: String, image: UIImage){
         //make a new sheet and get and save its ID
-        tempSheet.properties?.title = "\(fn) \(ln) Player Sheet"
+        tempSheet.sheets![0].properties?.title = "\(fn) \(ln) Player Sheet"
         players.append(Player(fn: fn, ln: ln, img: image, shtID: ""))
-        let query = GTLRSheetsQuery_SpreadsheetsCreate.query(withObject: tempSheet)
-        
+        var query = GTLRSheetsQuery_SpreadsheetsCreate.query(withObject: tempSheet)
+        service.authorizer = auth.fetcherAuthorizer()
         query.completionBlock = { (ticket, result, NSError) in
             
             if let error = NSError {
