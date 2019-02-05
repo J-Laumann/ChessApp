@@ -25,6 +25,7 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBOutlet weak var seasonPicker: UIPickerView!
     
+    @IBOutlet weak var schoolField: UITextField!
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var signInButton: GIDSignInButton!
@@ -51,6 +52,11 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         goButton.titleLabel?.numberOfLines = 1
         goButton.titleLabel?.adjustsFontSizeToFitWidth = true
         goButton.titleLabel?.lineBreakMode = .byClipping
+    
+        schoolField.returnKeyType = .done
+        if UserDefaults.standard.string(forKey: "school") != nil && UserDefaults.standard.string(forKey: "school") != ""{
+            schoolField.text = UserDefaults.standard.string(forKey: "school")
+        }
         
         if(UserDefaults.standard.integer(forKey: "players") != 0){
             playerCount = UserDefaults.standard.integer(forKey: "players")
@@ -72,7 +78,12 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func DoneSchoolField(_ sender: Any) {
+        UserDefaults.standard.set(schoolField.text, forKey: "school")
+        schoolField.resignFirstResponder()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toMain" {
             if let dvc = segue.destination as? TabViewController{
@@ -93,7 +104,7 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return "\(row + 1)"
+        return "\(row + 2018) - \(row + 2019)"
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -114,6 +125,10 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             //self.service.apiKey = "AIzaSyA3DGxcVr0ZOayrk3KHLtkkrTgz_4zq8MA"
             auth = signIn.currentUser.authentication
         }
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        UserDefaults.standard.set(schoolField.text, forKey: "school")
     }
     
 }

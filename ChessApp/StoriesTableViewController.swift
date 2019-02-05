@@ -11,7 +11,6 @@ class StoriesTableViewController: UITableViewController {
     var season : Int!
     
     private let service = GTLRSheetsService()
-    let tempSheet = GTLRSheets_Spreadsheet.init()
     var auth : GIDAuthentication!
     
     override func viewDidLoad() {
@@ -81,7 +80,10 @@ class StoriesTableViewController: UITableViewController {
     
     func newPlayer(fn: String, ln: String, image: UIImage){
         //make a new sheet and get and save its ID
-        tempSheet.properties?.title = "\(fn) \(ln) Player Sheet"
+        let tempSheet = GTLRSheets_Spreadsheet.init()
+        let newProps = GTLRSheets_SpreadsheetProperties.init()
+        newProps.title = "\(fn) \(ln)'s Chess Player Sheet (\(2018+season)-\(2019+season))"
+        tempSheet.properties = newProps
         players.append(Player(fn: fn, ln: ln, img: image, shtID: ""))
         let query = GTLRSheetsQuery_SpreadsheetsCreate.query(withObject: tempSheet)
         service.authorizer = auth.fetcherAuthorizer()
@@ -91,15 +93,17 @@ class StoriesTableViewController: UITableViewController {
                 print("ERROR:\(error.localizedDescription)")
             }
             else {
+                let resultSheet = result as? GTLRSheets_Spreadsheet
+                print("Created Sheet! \(String(describing: resultSheet?.properties?.title))")
                 let response = result as! GTLRSheets_Spreadsheet
                 let resource = GTLRSheets_ValueRange.init()
                 resource.values = [
                     ["CHESS LEAGUE"],
-                    ["","","","","","","","SEASON \(Int(self.season))"],
+                    ["","","","","","","","\(Int(self.season + 2018)) - \(Int(self.season + 2019)) SEASON"],
                     ["Individual Player's Record"],
                     [""],
                     ["Player:", "\(fn) \(ln)"],
-                    ["School", "Eagan", "", "", "", "", "Win", "Draw"],
+                    ["School:", "\(String(describing: UserDefaults.standard.string(forKey: "school")!))", "", "", "", "", "Win", "Draw"],
                     ["","","","","","1st","20","10"],
                     ["","","","","","2nd","19","9.5"],
                     ["","","","","","3rd","18","9"],
@@ -143,6 +147,7 @@ class StoriesTableViewController: UITableViewController {
                 dvc.player =  players[cell.tag - 1]
                 dvc.slot = cell.tag - 1
                 dvc.season = season
+                dvc.auth = auth
             }
         }
     }

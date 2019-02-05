@@ -47,6 +47,13 @@ class TabViewController: UITabBarController {
             if let tableView = self.viewControllers![item.tag - 1] as? StoriesTableViewController{
                 tableView.auth = auth
             }
+            if let newMatchView = self.viewControllers![item.tag - 1] as? NewMatchesView{
+                newMatchView.auth = auth
+                newMatchView.season = season
+            }
+            if let tableView = self.viewControllers![item.tag - 1] as? HistoryTableController{
+                tableView.tableView.reloadData()
+            }
         }
     }
     

@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import GoogleAPIClientForREST
+import GoogleSignIn
+import GoogleToolboxForMac
+import Google
+import GTMOAuth2
 
 class HistoryTableViewCell : UITableViewCell{
     
@@ -21,6 +26,8 @@ class HistoryTableViewCell : UITableViewCell{
 class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var player : Player!
+    private let service = GTLRSheetsService()
+    var auth : GIDAuthentication!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -80,21 +87,80 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func removeMatch(index: Int) {
-        player.history.remove(at: (index))
-        player.archive(fileName: "\(season)player\(Int(slot))")
-        var matches : [HistoryMatch] = []
-        for i in 0...(UserDefaults.standard.integer(forKey: "\(season)matches") - 1){
-            matches.append(HistoryMatch.init(player: Player.init(fn: "", ln: "", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "", oppSchool: "", board: 1, result: 1, m: 1, d: 1, y: 1))
-            matches[i].restore(fileName: "\(season)match\(i)")
-        }
-        matches.remove(at: index)
-        UserDefaults.standard.set(matches.count, forKey: "\(season)matches")
-        if(matches.count > 0){
-            for i in 0...(matches.count - 1){
-                matches[i].archive(fileName: "\(season)match\(i)")
+        service.authorizer = auth.fetcherAuthorizer()
+        let resource = GTLRSheets_ValueRange.init()
+        resource.values = [["","","","","","","",""]]
+        if index != (player.history.count - 1){
+            resource.values = []
+            for i in index+1...player.history.count - 1{
+                var resultText = "?"
+                var pointsText = "0"
+                if player.history[i].result == 0 {
+                    resultText = "W"
+                    if(player.history[i].boardNumb < 6){
+                        pointsText = "\(21 - player.history[i].boardNumb)"
+                    }
+                    else if(player.history[i].boardNumb == 6){
+                        pointsText = "10"
+                    }
+                    else{
+                        pointsText = "0"
+                    }
+                }
+                else if player.history[i].result == 1 {
+                    resultText = "L"
+                }
+                else{
+                    resultText = "T"
+                    if(player.history[i].boardNumb < 6){
+                        pointsText = "\(Int(10.5 - (Double(player.history[i].boardNumb) * 0.5)))"
+                    }
+                    else if(player.history[i].boardNumb == 6){
+                        pointsText = "5"
+                    }
+                    else{
+                        pointsText = "0"
+                    }
+                }
+                resource.values?.append([
+                    "\(i + 1)",
+                    "\(player.history[i].month)/\(player.history[i].day)/\(player.history[i].year)",
+                    "\(player.history[i].boardNumb)",
+                    "W",
+                    "\(player.history[i].opponent)",
+                    "\(player.history[i].opponentSchool)",
+                    "\(resultText)",
+                    "\(pointsText)"
+                    ])
             }
+            resource.values?.append(["","","","","","","",""])
         }
-        tableView.reloadData()
+        let spreadsheetId = player.sheetID
+        let range = "A\(16+index):H\(16+player.history.count-1)"
+        print("\(range) : \(String(describing: resource.values))")
+        resource.range = range
+        let editQuery = GTLRSheetsQuery_SpreadsheetsValuesAppend.query(withObject: resource, spreadsheetId: spreadsheetId, range: range)
+        editQuery.valueInputOption = "RAW"
+        editQuery.insertDataOption = "OVERWRITE"
+        editQuery.completionBlock = { (ticket, result, NSError) in
+            var matches : [HistoryMatch] = []
+            for i in 0...(UserDefaults.standard.integer(forKey: "\(self.season)matches")){
+                matches.append(HistoryMatch.init(player: Player.init(fn: "", ln: "", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "", oppSchool: "", board: 1, result: 1, m: 1, d: 1, y: 1))
+                matches[i].restore(fileName: "\(self.season)match\(i)")
+            }
+            print("To Remove from History... \(self.player.history[index].id)")
+            matches.remove(at: self.player.history[index].id)
+            UserDefaults.standard.set(matches.count, forKey: "\(self.season)matches")
+            if(matches.count > 0){
+                for i in 0...(matches.count - 1){
+                    matches[i].archive(fileName: "\(self.season)match\(i)")
+                }
+            }
+            self.player.history.remove(at: (index))
+            self.player.archive(fileName: "\(self.season)player\(Int(self.slot))")
+            self.tableView.reloadData()
+        }
+        service.executeQuery(editQuery, completionHandler: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
