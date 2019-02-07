@@ -365,7 +365,7 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
                     let tempPlayer = Player.init(fn: "New", ln: "Game", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: "")
                     tempPlayer.restore(fileName: "\(self.season)player\(player.index)")
                     tempPlayer.history.append(Match.init(oppName: match.opponent, oppSchool: match.opponentSchool, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, id: UserDefaults.standard.integer(forKey:"\(self.season)matches"), color: match.color))
-                    self.matchHistory.append(HistoryMatch.init(player: player, oppName: match.opponent, oppSchool: match.opponent, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, color: match.color))
+                    self.matchHistory.append(HistoryMatch.init(player: player, oppName: match.opponent, oppSchool: match.opponentSchool, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, color: match.color))
                     self.matchHistory[UserDefaults.standard.integer(forKey:"\(self.season)matches")].archive(fileName: "\(self.season)match\(UserDefaults.standard.integer(forKey:"\(self.season)matches"))")
                     print("Saved Match history under \(self.season)match\(UserDefaults.standard.integer(forKey:"\(self.season)matches"))")
                     UserDefaults.standard.set(UserDefaults.standard.integer(forKey:"\(self.season)matches") + 1, forKey: "\(self.season)matches")
