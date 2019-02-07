@@ -28,6 +28,7 @@ class Player: Codable {
     var imgData: String
     var sheetID: String
     var history : [Match]
+    var index : Int
 
     
     // **** The initializer ("constructor" in Java terms) gives the persistent object its initial values ****
@@ -40,6 +41,8 @@ class Player: Codable {
         imgData = strBase64
         sheetID = shtID
         history = []
+        let season = UserDefaults.standard.integer(forKey: "season")
+        index = UserDefaults.standard.integer(forKey:"\(season)players")
     }
     
     // ********** You should not have to change ANYTHING in "func archive()" to use *************
@@ -83,6 +86,7 @@ class Player: Codable {
                 imgData = recoveredData.imgData
                 history = recoveredData.history
                 sheetID = recoveredData.sheetID
+                index = recoveredData.index
                 // *** Replace all the assignment statements ABOVE to "restore" all properties of the object ***
             } catch {
                 os_log("Failed to recover data", log: OSLog.default, type: .error)

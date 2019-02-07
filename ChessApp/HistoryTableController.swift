@@ -14,6 +14,7 @@ class HistoryCell : UITableViewCell {
     @IBOutlet weak var opponentInfo: UILabel!
     @IBOutlet weak var Board: UILabel!
     @IBOutlet weak var result: UILabel!
+    @IBOutlet weak var colorIcon: UIImageView!
 }
 
 class HistoryTableController: UITableViewController {
@@ -32,7 +33,7 @@ class HistoryTableController: UITableViewController {
         season = UserDefaults.standard.integer(forKey: "season")
         if(UserDefaults.standard.integer(forKey: "\(season)matches") > 0){
             for i in 0...(UserDefaults.standard.integer(forKey: "\(season)matches")){
-                matches.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID:""), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1))
+                matches.append(HistoryMatch.init(player: Player.init(fn: "Place", ln: "Holder", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID:""), oppName: "Place", oppSchool: "Holder", board: 1, result: 1, m: 1, d: 1, y: 1, color: -1))
                 matches[i].restore(fileName: "\(season)match\(i)")
             }
         }
@@ -60,11 +61,17 @@ class HistoryTableController: UITableViewController {
         let i = ((UserDefaults.standard.integer(forKey: "\(season)matches") - 1) - indexPath.row)
         cell.date.text = "\(matches[i].month) / \(matches[i].day) / \(matches[i].year)"
         cell.Board.text = "\(matches[i].boardNumb)"
-        cell.opponentInfo.text = "\(matches[i].opponent) : \(matches[i].opponentSchool)"
-        cell.playerName.text = "\(matches[i].player.firstName) \(matches[i].player.lastName)"
+        if matches[i].color == 0 {
+            cell.colorIcon.image = #imageLiteral(resourceName: "whiteKing")
+        }
+        else{
+            cell.colorIcon.image = #imageLiteral(resourceName: "blackKing")
+        }
+        cell.opponentInfo.text = "\(matches[i].opponentSchool)"
+        cell.playerName.text = "\(matches[i].player.firstName) \(matches[i].player.lastName) vs. \(matches[i].opponent)"
         if(matches[i].result == 0){
             cell.result.text = "Win"
-            cell.result.textColor = UIColor.green
+            cell.result.textColor = UIColor.init(red: 0.1, green: 0.7, blue: 0.3, alpha: 1)
         }
         else if(matches[i].result == 1){
             cell.result.text = "Loss"

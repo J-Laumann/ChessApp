@@ -32,11 +32,12 @@ class Match: Codable {
     var day: Int
     var year: Int
     var id : Int
+    var color : Int
     
     
     // **** The initializer ("constructor" in Java terms) gives the persistent object its initial values ****
     // **** before it is restored from an archived value. Every Property must have an initial value. ****
-    init(oppName: String, oppSchool: String, board: Int, result: Int, m: Int, d: Int, y: Int, id: Int){
+    init(oppName: String, oppSchool: String, board: Int, result: Int, m: Int, d: Int, y: Int, id: Int, color: Int){
         self.opponent = oppName
         self.opponentSchool = oppSchool
         self.boardNumb = board
@@ -45,6 +46,7 @@ class Match: Codable {
         self.day = d
         self.year = y
         self.id = id
+        self.color = color
     }
     
     // ********** You should not have to change ANYTHING in "func archive()" to use *************
@@ -91,6 +93,7 @@ class Match: Codable {
                 day = recoveredData.day
                 year = recoveredData.year
                 id = recoveredData.id
+                color = recoveredData.color
                 // *** Replace all the assignment statements ABOVE to "restore" all properties of the object ***
             } catch {
                 os_log("Failed to recover data", log: OSLog.default, type: .error)
@@ -108,6 +111,7 @@ class HistoryMatch : Codable {
     var opponent : String
     var opponentSchool : String
     var boardNumb : Int
+    var color : Int
     //result - 0 = win, 1 = loss, 2 = tie
     var result : Int
     var month : Int
@@ -118,7 +122,7 @@ class HistoryMatch : Codable {
     
     // **** The initializer ("constructor" in Java terms) gives the persistent object its initial values ****
     // **** before it is restored from an archived value. Every Property must have an initial value. ****
-    init(player: Player,oppName: String, oppSchool: String, board: Int, result: Int, m: Int, d: Int, y: Int){
+    init(player: Player,oppName: String, oppSchool: String, board: Int, result: Int, m: Int, d: Int, y: Int, color: Int){
         self.opponent = oppName
         self.opponentSchool = oppSchool
         self.boardNumb = board
@@ -127,6 +131,7 @@ class HistoryMatch : Codable {
         self.day = d
         self.year = y
         self.player = player
+        self.color = color
     }
     
     // ********** You should not have to change ANYTHING in "func archive()" to use *************
@@ -173,6 +178,7 @@ class HistoryMatch : Codable {
                 month = recoveredData.month
                 day = recoveredData.day
                 year = recoveredData.year
+                color = recoveredData.color
                 // *** Replace all the assignment statements ABOVE to "restore" all properties of the object ***
             } catch {
                 os_log("Failed to recover data", log: OSLog.default, type: .error)

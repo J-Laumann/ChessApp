@@ -20,7 +20,7 @@ class HistoryTableViewCell : UITableViewCell{
     @IBOutlet weak var dateText: UILabel!
     @IBOutlet weak var result: UILabel!
     @IBOutlet weak var boardText: UILabel!
-    @IBOutlet weak var removeButton: UIButton!
+    @IBOutlet weak var colorIcon: UIImageView!
 }
 
 class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -145,7 +145,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         editQuery.completionBlock = { (ticket, result, NSError) in
             var matches : [HistoryMatch] = []
             for i in 0...(UserDefaults.standard.integer(forKey: "\(self.season)matches")){
-                matches.append(HistoryMatch.init(player: Player.init(fn: "", ln: "", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "", oppSchool: "", board: 1, result: 1, m: 1, d: 1, y: 1))
+                matches.append(HistoryMatch.init(player: Player.init(fn: "", ln: "", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "", oppSchool: "", board: 1, result: 1, m: 1, d: 1, y: 1, color: -1))
                 matches[i].restore(fileName: "\(self.season)match\(i)")
             }
             print("To Remove from History... \(self.player.history[index].id)")
@@ -179,11 +179,17 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         let match : Match = player.history[indexPath.row]
         cell.oppName.text = match.opponent
         cell.oppSchool.text = match.opponentSchool
+        if match.color == 0 {
+            cell.colorIcon.image = #imageLiteral(resourceName: "whiteKing")
+        }
+        else{
+            cell.colorIcon.image = #imageLiteral(resourceName: "blackKing")
+        }
         cell.boardText.text = "\(match.boardNumb)"
         winlosstieText.text = "\(wins) - \(losses) - \(ties)"
         scoreLabel.text = "\(score)"
         cell.dateText?.text = "\(match.month)/\(match.day)/\(match.year)"
-        if(match.result == 0){ cell.result.text = "W"; cell.result.textColor = UIColor.green}
+        if(match.result == 0){ cell.result.text = "W"; cell.result.textColor = UIColor.init(red: 0.1, green: 0.7, blue: 0.3, alpha: 1)}
         else if(match.result == 1){ cell.result.text = "L"; cell.result.textColor = .red}
         else if(match.result == 2){ cell.result.text = "T"; cell.result.textColor = .black}
         cell.tag = indexPath.row
