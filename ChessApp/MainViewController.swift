@@ -29,6 +29,7 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var background: UIImageView!
     @IBOutlet weak var signInButton: GIDSignInButton!
+    @IBOutlet weak var schoolLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,6 +132,22 @@ class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         UserDefaults.standard.set(schoolField.text, forKey: "school")
     }
     
+    @IBAction func SignOutPressed(_ sender: Any) {
+        GIDSignIn.sharedInstance().signOut()
+        signInButton.isHidden = false
+        background.superview?.isHidden = false
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "toMain" {
+            if schoolField.text == "" || schoolField.text == nil {
+                schoolLabel.textColor = UIColor.red
+                return false
+            }
+        }
+        return true
+    }
+    
 }
 
 class BackTabController : UIViewController{
@@ -138,4 +155,9 @@ class BackTabController : UIViewController{
         super.viewDidLoad()
         performSegue(withIdentifier: "begin", sender: self)
     }
+}
+
+class MainPlayerCell : UITableViewCell {
+    @IBOutlet weak var playerImage: UIImageView!
+    @IBOutlet weak var playerName: UILabel!
 }

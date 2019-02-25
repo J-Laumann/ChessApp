@@ -111,14 +111,16 @@ class StoriesTableViewController: UITableViewController {
                     ["","","","","","5th","16","8"],
                     ["","","","","","6th","10","5"],
                     [""],
-                    ["ROUND", "DATE", "BOARD", "COLOR", "OPPONENT", "OPP. SCHOOL", "RESULT", "POINTS"]
+                    ["GAME", "DATE", "BOARD", "COLOR", "OPPONENT", "OPP. SCHOOL", "RESULT", "POINTS"]
                 ]
+                for i in 1...100 {
+                    resource.values?.append(["\(i)","","","","","","","","",""])
+                }
                 let spreadsheetId = response.spreadsheetId
-                let range = "A1:H14"
+                let range = "A1:H114"
                 let editQuery = GTLRSheetsQuery_SpreadsheetsValuesAppend.query(withObject: resource, spreadsheetId: spreadsheetId!, range: range)
                 editQuery.valueInputOption = "USER_ENTERED"
                 editQuery.completionBlock = { (ticket, result, NSError) in
-                    
                     if let error = NSError {
                         print("ERROR:\(error.localizedDescription)")
                     }
@@ -127,6 +129,7 @@ class StoriesTableViewController: UITableViewController {
                         let identifier = response.spreadsheetId
                         print("new sheet id: \(identifier!)")
                         self.players[self.players.count - 1].sheetID = String(identifier!)
+                        self.players[self.players.count - 1].index = self.players.count - 1 
                         self.players[self.players.count - 1].archive(fileName: "\(self.season)player\(self.players.count - 1)")
                         UserDefaults.standard.set(self.players.count, forKey: "\(self.season)players")
                         self.tableView.reloadData()
@@ -153,13 +156,12 @@ class StoriesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath) as! MainPlayerCell
         let h = players[indexPath.row]
-        cell.textLabel?.text = "\(h.firstName) \(h.lastName)"
+        cell.playerName.text = "\(h.firstName) \(h.lastName)"
         let strBase64: String = h.imgData
         let dataDecoded: Data = Data(base64Encoded: strBase64, options: .ignoreUnknownCharacters)!
-        cell.imageView?.image = UIImage(data: dataDecoded)
+        cell.playerImage.image = UIImage(data: dataDecoded)
         cell.tag = indexPath.row + 1
 
         return cell

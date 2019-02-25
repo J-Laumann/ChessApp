@@ -86,6 +86,12 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func openURL(_ sender: Any) {
+        if let url = URL(string: "https://docs.google.com/spreadsheets/d/\(player.sheetID)") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
     func removeMatch(index: Int) {
         service.authorizer = auth.fetcherAuthorizer()
         let resource = GTLRSheets_ValueRange.init()
@@ -94,7 +100,14 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
             resource.values = []
             for i in index+1...player.history.count - 1{
                 var resultText = "?"
-                var pointsText = "0"
+                var pointsText = "?"
+                var colorText = "?"
+                if player.history[i].color == 0 {
+                    colorText = "White"
+                }
+                else if player.history[i].color == 1 {
+                    colorText = "Black"
+                }
                 if player.history[i].result == 0 {
                     resultText = "W"
                     if(player.history[i].boardNumb < 6){
@@ -123,25 +136,46 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
                     }
                 }
                 resource.values?.append([
-                    "\(i + 1)",
+                    "\(i)",
                     "\(player.history[i].month)/\(player.history[i].day)/\(player.history[i].year)",
                     "\(player.history[i].boardNumb)",
-                    "W",
+                    "\(colorText)",
                     "\(player.history[i].opponent)",
                     "\(player.history[i].opponentSchool)",
                     "\(resultText)",
                     "\(pointsText)"
                     ])
             }
+            var totalpoints = 0
+            for item in player.history {
+                if item.result == 0 {
+                    if(item.boardNumb < 6){
+                        totalpoints += 21 - item.boardNumb
+                    }
+                    else if(item.boardNumb == 6){
+                        totalpoints += 10
+                    }
+                }
+                else if item.result == 2{
+                    if(item.boardNumb < 6){
+                        totalpoints += Int(10.5 - (Double(item.boardNumb) * 0.5))
+                    }
+                    else if(item.boardNumb == 6){
+                        totalpoints += 5
+                    }
+                }
+            }
+            resource.values?.append(["","","","","","","",""])
+            resource.values?.append(["","","","","","","","Total Points"])
+            resource.values?.append(["","","","","","","","\(totalpoints)"])
             resource.values?.append(["","","","","","","",""])
         }
         let spreadsheetId = player.sheetID
-        let range = "A\(16+index):H\(16+player.history.count-1)"
+        let range = "A\(16+index):H\(16+player.history.count-1+3)"
         print("\(range) : \(String(describing: resource.values))")
         resource.range = range
-        let editQuery = GTLRSheetsQuery_SpreadsheetsValuesAppend.query(withObject: resource, spreadsheetId: spreadsheetId, range: range)
+        let editQuery = GTLRSheetsQuery_SpreadsheetsValuesUpdate.query(withObject: resource, spreadsheetId: spreadsheetId, range: range)
         editQuery.valueInputOption = "RAW"
-        editQuery.insertDataOption = "OVERWRITE"
         editQuery.completionBlock = { (ticket, result, NSError) in
             var matches : [HistoryMatch] = []
             for i in 0...(UserDefaults.standard.integer(forKey: "\(self.season)matches")){
@@ -159,6 +193,7 @@ class PlayerDetailViewController: UIViewController, UITableViewDelegate, UITable
             self.player.history.remove(at: (index))
             self.player.archive(fileName: "\(self.season)player\(Int(self.slot))")
             self.tableView.reloadData()
+            self.viewDidLoad()
         }
         service.executeQuery(editQuery, completionHandler: nil)
     }

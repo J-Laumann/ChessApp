@@ -34,6 +34,7 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
     var auth : GIDAuthentication!
     var service = GTLRSheetsService()
     var season : Int!
+    var queueLength : Int = -1
     
     //stuff to disable upon new match
     @IBOutlet weak var startButton: UIButton!
@@ -42,8 +43,11 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var newMatchLabel: UILabel!
     @IBOutlet weak var backgroundImage: UIImageView!
     
+    @IBOutlet weak var popupView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        popupView.isHidden = true
         gamesTable.delegate = self
         gamesTable.dataSource = self
         gamesTable.allowsMultipleSelectionDuringEditing = false
@@ -123,7 +127,7 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
+        if editingStyle == .delete && matches[indexPath.row].boardNumb > -1 {
             matches.remove(at: indexPath.row)
             if indexPath.row < (matches.count - 1) {
                 for i in indexPath.row...(matches.count - 2) {
@@ -208,8 +212,11 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print("Cancelled match set")
                     return
                 }
+                let tempPlayer = Player.init(fn: "", ln: "", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: "")
+                let playerIndex = sv.playerPicker.selectedRow(inComponent: 0)
+                tempPlayer.restore(fileName: "\(season)player\(playerIndex)")
                 let x = matches.count - 1
-                matches[x].player = sv.player
+                matches[x].player = tempPlayer
                 matches[x].boardNumb = sv.gameIndex + 1
                 matches[x].day = UserDefaults.standard.integer(forKey: "\(season)tempDay")
                 matches[x].month = UserDefaults.standard.integer(forKey: "\(season)tempMonth")
@@ -227,22 +234,26 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    @IBAction func cancelMatch(_ sender: UIStoryboardSegue){
+        if sender.source is NewMatchViewController{
+            if let sv = sender.source as? NewMatchViewController{
+                sv.playerPicker.selectRow(0, inComponent: 0, animated: true)
+                sv.colorButton.setImage(#imageLiteral(resourceName: "whiteKing"), for: .normal)
+                sv.gameColor = 0
+                sv.OppNameField.text = ""
+                print("Cancelled match set")
+                return
+            }
+        }
+    }
+    
     @IBAction func FinishMatches(_ sender: Any) {
         //save all to players
-        for match in matches {
-            SaveMatch(match: Match.init(oppName: match.opponent, oppSchool: match.opponentSchool, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, id: match.player.history.count - 1, color: match.color), player: match.player)
-        }
-        //reset
-        matches = [HistoryMatch.init(player: Player.init(fn: "New", ln: "Game", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "", oppSchool: "", board: -1, result: 6, m: 0, d: 0, y: 0, color: -1)]
-        UserDefaults.standard.set(0, forKey: "\(season)tempMatches")
-        UserDefaults.standard.set("", forKey: "\(season)tempSchool")
-        gamesTable.reloadData()
-        backgroundImage.isHidden = false
-        newMatchLabel.isHidden = false
-        oppSchoolField.text = ""
-        oppSchoolField.isHidden = false
-        startButton.isHidden = false
-        datePicker.isHidden = false
+        popupView.isHidden = false
+        print("Pressed done...")
+        queueLength = matches.count - 2
+        print("Started queue with length \(queueLength + 1)")
+        SaveMatch(match: Match.init(oppName: matches[queueLength].opponent, oppSchool: matches[queueLength].opponentSchool, board: matches[queueLength].boardNumb, result: matches[queueLength].result, m: matches[queueLength].month, d: matches[queueLength].day, y: matches[queueLength].year, id: matches[queueLength].player.history.count - 1, color: matches[queueLength].color), player: matches[queueLength].player)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -305,6 +316,7 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
         if player.sheetID != "" {
             let resource = GTLRSheets_ValueRange.init()
             service.authorizer = auth.fetcherAuthorizer()
+            player.restore(fileName: "\(self.season)player\(player.index)")
             var resultText = "?"
             var pointsText = "0"
             let result = match.result
@@ -342,6 +354,25 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
                     pointsText = "0"
                 }
             }
+            var totalpoints = 0
+            for item in player.history {
+                if item.result == 0 {
+                    if(item.boardNumb < 6){
+                        totalpoints += 21 - item.boardNumb
+                    }
+                    else if(item.boardNumb == 6){
+                        totalpoints += 10
+                    }
+                }
+                else if item.result == 2{
+                    if(item.boardNumb < 6){
+                        totalpoints += Int(10.5 - (Double(item.boardNumb) * 0.5))
+                    }
+                    else if(item.boardNumb == 6){
+                        totalpoints += 5
+                    }
+                }
+            }
             resource.values = [
                 [
                     "\(player.history.count + 1)",
@@ -352,25 +383,44 @@ class NewMatchesView: UIViewController, UITableViewDelegate, UITableViewDataSour
                     "\(match.opponentSchool)",
                     "\(resultText)",
                     "\(pointsText)"
-                ]
+                ],
+                ["","","","","","","",""],
+                ["","","","","","","","Total"],
+                ["","","","","","","","\(totalpoints)"]
             ]
             let spreadsheetId = player.sheetID
-            let range = "A\(16 + player.history.count):H\(16 + player.history.count)"
+            let range = "A\(16 + player.history.count):H\(16 + player.history.count + 2)"
             resource.range = range
-            let editQuery = GTLRSheetsQuery_SpreadsheetsValuesAppend.query(withObject: resource, spreadsheetId: spreadsheetId, range: range)
+            let editQuery = GTLRSheetsQuery_SpreadsheetsValuesUpdate.query(withObject: resource, spreadsheetId: spreadsheetId, range: range)
             editQuery.valueInputOption = "RAW"
-            editQuery.insertDataOption = "OVERWRITE"
             editQuery.completionBlock = { (ticket, result, NSError) in
                 if(UserDefaults.standard.integer(forKey: "\(self.season)players") > 0){
-                    let tempPlayer = Player.init(fn: "New", ln: "Game", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: "")
-                    tempPlayer.restore(fileName: "\(self.season)player\(player.index)")
-                    tempPlayer.history.append(Match.init(oppName: match.opponent, oppSchool: match.opponentSchool, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, id: UserDefaults.standard.integer(forKey:"\(self.season)matches"), color: match.color))
+                    player.history.append(Match.init(oppName: match.opponent, oppSchool: match.opponentSchool, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, id: UserDefaults.standard.integer(forKey:"\(self.season)matches"), color: match.color))
                     self.matchHistory.append(HistoryMatch.init(player: player, oppName: match.opponent, oppSchool: match.opponentSchool, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, color: match.color))
                     self.matchHistory[UserDefaults.standard.integer(forKey:"\(self.season)matches")].archive(fileName: "\(self.season)match\(UserDefaults.standard.integer(forKey:"\(self.season)matches"))")
                     print("Saved Match history under \(self.season)match\(UserDefaults.standard.integer(forKey:"\(self.season)matches"))")
                     UserDefaults.standard.set(UserDefaults.standard.integer(forKey:"\(self.season)matches") + 1, forKey: "\(self.season)matches")
-                    tempPlayer.archive(fileName: "\(self.season)player\(player.index)")
+                    player.archive(fileName: "\(self.season)player\(player.index)")
                     AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                    print("SAVED GAME \(self.queueLength)")
+                    self.queueLength -= 1
+                    if self.queueLength > -1 {
+                        self.SaveMatch(match: Match.init(oppName: self.matches[self.queueLength].opponent, oppSchool: self.matches[self.queueLength].opponentSchool, board: self.matches[self.queueLength].boardNumb, result: self.matches[self.queueLength].result, m: self.matches[self.queueLength].month, d: self.matches[self.queueLength].day, y: self.matches[self.queueLength].year, id: self.matches[self.queueLength].player.history.count - 1, color: self.matches[self.queueLength].color), player: self.matches[self.queueLength].player)
+                    }
+                    else {
+                        //reset
+                        self.matches = [HistoryMatch.init(player: Player.init(fn: "New", ln: "Game", img: #imageLiteral(resourceName: "avatar-male-silhouette-hi"), shtID: ""), oppName: "", oppSchool: "", board: -1, result: 6, m: 0, d: 0, y: 0, color: -1)]
+                        UserDefaults.standard.set(0, forKey: "\(self.season)tempMatches")
+                        UserDefaults.standard.set("", forKey: "\(self.season)tempSchool")
+                        self.gamesTable.reloadData()
+                        self.backgroundImage.isHidden = false
+                        self.newMatchLabel.isHidden = false
+                        self.oppSchoolField.text = ""
+                        self.oppSchoolField.isHidden = false
+                        self.startButton.isHidden = false
+                        self.datePicker.isHidden = false
+                        self.popupView.isHidden = true
+                    }
                 }
             }
             service.executeQuery(editQuery, completionHandler: nil)
@@ -515,7 +565,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         }
     }
     
-    func SaveMatch(match : Match, player : Player) {
+    func SaveMatch(match : Match, player : Player, index: Int) {
         if(player.sheetID != ""){
             print("Saving match...")
             popupText.text = "Saving Match..."
@@ -526,6 +576,12 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             popupView.alpha = 1
             popupText.alpha = 1
             let resource = GTLRSheets_ValueRange.init()
+            if (player.history.count - 1) < index {
+                for _ in (player.history.count - 1)...index {
+                    player.history.append(Match.init(oppName: "", oppSchool: "", board: 0, result: 0, m: 0, d: 0, y: 0, id: 0, color: 0))
+                    matchHistory.append(HistoryMatch.init(player: player, oppName: "", oppSchool: "", board: 0, result: 0, m: 0, d: 0, y: 0, color: 0))
+                }
+            }
             service.authorizer = auth.fetcherAuthorizer()
             var resultText = "?"
             var pointsText = "0"
@@ -566,7 +622,7 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             }
             resource.values = [
                 [
-                    "\(player.history.count + 1)",
+                    "\(index + 1)",
                     "\(match.month)/\(match.day)/\(match.year)",
                     "\(match.boardNumb)",
                     "\(colorText)",
@@ -577,16 +633,15 @@ class NewMatchViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                 ]
             ]
             let spreadsheetId = player.sheetID
-            let range = "A\(16 + player.history.count):H\(16 + player.history.count)"
+            let range = "A\(16 + index):H\(16 + index)"
             resource.range = range
-            let editQuery = GTLRSheetsQuery_SpreadsheetsValuesAppend.query(withObject: resource, spreadsheetId: spreadsheetId, range: range)
+            let editQuery = GTLRSheetsQuery_SpreadsheetsValuesUpdate.query(withObject: resource, spreadsheetId: spreadsheetId, range: range)
             editQuery.valueInputOption = "RAW"
-            editQuery.insertDataOption = "OVERWRITE"
             editQuery.completionBlock = { (ticket, result, NSError) in
                 if(UserDefaults.standard.integer(forKey: "\(self.season)players") > 0){
                     self.player.restore(fileName: "\(self.season)player\(self.playerPicker.selectedRow(inComponent: 0))")
-                    self.player.history.append(Match.init(oppName: match.opponent, oppSchool: match.opponentSchool, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, id: self.matches, color: self.gameColor))
-                    self.matchHistory.append(HistoryMatch.init(player: player, oppName: match.opponent, oppSchool: match.opponent, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, color: self.gameColor))
+                    self.player.history[index] = Match.init(oppName: match.opponent, oppSchool: match.opponentSchool, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, id: self.matches, color: self.gameColor)
+                    self.matchHistory[self.matches] = (HistoryMatch.init(player: player, oppName: match.opponent, oppSchool: match.opponent, board: match.boardNumb, result: match.result, m: match.month, d: match.day, y: match.year, color: self.gameColor))
                     self.matchHistory[self.matches - 1].archive(fileName: "\(self.season)match\(self.matchHistory[self.matches - 1])")
                     UserDefaults.standard.set(self.matches, forKey: "\(self.season)matches")
                     self.player.archive(fileName: "\(self.season)player\(self.playerPicker.selectedRow(inComponent: 0))")
