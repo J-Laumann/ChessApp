@@ -19,6 +19,7 @@ import Foundation
 import os.log
 import UIKit
 
+//By Jackson Laumann
 // **** Replace "PlayerClass" with the name of your class object to be persistent ***
 class Match: Codable {
     // **** These are all the Properties of the object to be persistent. ****

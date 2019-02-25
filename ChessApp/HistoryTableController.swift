@@ -8,6 +8,7 @@
 
 import UIKit
 
+//By Jackson Laumann
 class HistoryCell : UITableViewCell {
     @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var date: UILabel!

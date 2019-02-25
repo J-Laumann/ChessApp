@@ -14,6 +14,7 @@ import GoogleToolboxForMac
 import Google
 import GTMOAuth2
 
+//By Jackson Laumann
 class NewMatchTableCell: UITableViewCell {
     @IBOutlet weak var playerName: UILabel!
     @IBOutlet weak var boardText: UILabel!

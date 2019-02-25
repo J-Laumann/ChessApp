@@ -14,6 +14,7 @@ import GoogleToolboxForMac
 import Google
 import GTMOAuth2
 
+//By Jackson Laumann
 class MainViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, GIDSignInUIDelegate, GIDSignInDelegate {
     
     var mainPlayers : [Player]! = []

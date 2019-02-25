@@ -14,6 +14,7 @@ import GoogleSignIn
 import GoogleToolboxForMac
 import GTMOAuth2
 
+//By Jackson Laumann
 class AddPlayerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
    

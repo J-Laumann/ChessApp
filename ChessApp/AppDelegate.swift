@@ -3,6 +3,8 @@ import GoogleSignIn
 import FirebaseCore
 import GTMOAuth2
 
+
+//By Jackson Laumann
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     

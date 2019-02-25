@@ -13,6 +13,7 @@ import GoogleToolboxForMac
 import Google
 import GTMOAuth2
 
+//By Jackson Laumann
 class HistoryTableViewCell : UITableViewCell{
     
     @IBOutlet weak var oppName: UILabel!

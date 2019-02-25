@@ -5,6 +5,7 @@ import GoogleToolboxForMac
 import Google
 import GTMOAuth2
 
+//By Jackson Laumann
 class StoriesTableViewController: UITableViewController {
 
     var players : [Player]! = []
